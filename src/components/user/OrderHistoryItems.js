@@ -85,52 +85,60 @@ const OrderHistoryItems = (props) => {
 
   return (
     <>
-      {props.itemsData.map((item) => {
-        const size =
-          item.selectedOptions.length > 0
-            ? item.selectedOptions?.find((option) => option.type === "sizes")
-            : null;
+      {props.itemsData &&
+        Array.isArray(props.itemsData) &&
+        props.itemsData.map((item) => {
+          const size =
+            item.selectedOptions &&
+            Array.isArray(item.selectedOptions) &&
+            item.selectedOptions.length > 0
+              ? item.selectedOptions?.find((option) => option.type === "sizes")
+              : null;
 
-        const message =
-          item.selectedAddons.length > 0
-            ? item.selectedAddons?.find((addon) => addon.type === "addMessage")
-            : null;
+          const message =
+            item.selectedAddons &&
+            Array.isArray(item.selectedAddons) &&
+            item.selectedAddons.length > 0
+              ? item.selectedAddons?.find(
+                  (addon) => addon.type === "addMessage"
+                )
+              : null;
 
-        return (
-          <HistoryItem key={item.timeStamp} variant="outlined" component="li">
-            <ItemImageContainer>
-              {!matchesDownSm && <MessageBadge />}
-              <ItemImage
-                component="img"
-                image={item.imageSquareSmall}
-                alt="product image"
-                data-link-to={`/product/${item.url}`}
-                onClick={props.onNavigate}
-              />
-            </ItemImageContainer>
-            <ContentBase>
-              <ContentHeader>
-                <Typography variant="cart2">{`${item.title} x ${item.quantity}`}</Typography>
-                <Typography variant="cart2">{`$${item.price}`}</Typography>
-              </ContentHeader>
-              <ContentBody>
-                {size && <Chip label={size.option.labelShort} size="small" />}
-                {message && <Chip label="Message" size="small" />}
-              </ContentBody>
-              <ContentFooter>
-                <Chip
-                  label="Buy again"
-                  color="primary"
-                  size="small"
+          return (
+            <HistoryItem key={item.timeStamp} variant="outlined" component="li">
+              <ItemImageContainer>
+                {!matchesDownSm && <MessageBadge />}
+                <ItemImage
+                  component="img"
+                  image={item.imageSquareSmall}
+                  alt="product image"
                   data-link-to={`/product/${item.url}`}
                   onClick={props.onNavigate}
-                  icon={<AddShoppingCartIcon fontSize="small" />}
                 />
-              </ContentFooter>
-            </ContentBase>
-          </HistoryItem>
-        );
-      })}
+              </ItemImageContainer>
+              <ContentBase>
+                <ContentHeader>
+                  <Typography variant="cart2">{`${item.title} x ${item.quantity}`}</Typography>
+                  <Typography variant="cart2">{`$${item.price}`}</Typography>
+                </ContentHeader>
+                <ContentBody>
+                  {size && <Chip label={size.option.labelShort} size="small" />}
+                  {message && <Chip label="Message" size="small" />}
+                </ContentBody>
+                <ContentFooter>
+                  <Chip
+                    label="Buy again"
+                    color="primary"
+                    size="small"
+                    data-link-to={`/product/${item.url}`}
+                    onClick={props.onNavigate}
+                    icon={<AddShoppingCartIcon fontSize="small" />}
+                  />
+                </ContentFooter>
+              </ContentBase>
+            </HistoryItem>
+          );
+        })}
     </>
   );
 };

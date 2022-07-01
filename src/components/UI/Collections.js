@@ -41,23 +41,32 @@ const Collections = (props) => {
     if (props.onItemClick) props.onItemClick();
   };
 
+  const { collectionList: collections } = props;
+
   return (
     <>
-      {props.collectionList.map((collection) => {
-        const { id, url, logo, imageLandscapeMedium: background } = collection;
-        return (
-          <CollectionCard
-            key={`collection-${id}`}
-            sx={{
-              backgroundImage: `url(${background})`,
-            }}
-            data-collection-url={url}
-            onClick={handleCollectionClick}
-          >
-            <Logo component="figure">{logo}</Logo>
-          </CollectionCard>
-        );
-      })}
+      {collections &&
+        Array.isArray(collections) &&
+        collections.map((collection) => {
+          const {
+            id,
+            url,
+            logo,
+            imageLandscapeMedium: background,
+          } = collection;
+          return (
+            <CollectionCard
+              key={`collection-${id}`}
+              sx={{
+                backgroundImage: `url(${background})`,
+              }}
+              data-collection-url={url}
+              onClick={handleCollectionClick}
+            >
+              <Logo component="figure">{logo}</Logo>
+            </CollectionCard>
+          );
+        })}
     </>
   );
 };

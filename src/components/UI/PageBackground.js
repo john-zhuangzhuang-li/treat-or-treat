@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 
-const Background = styled("div")(({ theme }) => ({
+const Background = styled("div")({
   gridColumn: "full",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
@@ -10,14 +10,14 @@ const Background = styled("div")(({ theme }) => ({
   height: "100%",
   zIndex: "1",
   transition: "all 0.5s",
-}));
+});
 
-const BackgroundExtended = styled("div")(({ theme }) => ({
+const BackgroundExtended = styled("div")({
   gridColumn: "full",
   gridRow: "3 / 4",
   height: "15rem",
   zIndex: "10",
-}));
+});
 
 const PageBackground = (props) => {
   const theme = useTheme();

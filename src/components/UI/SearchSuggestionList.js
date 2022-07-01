@@ -17,6 +17,7 @@ const SearchSuggestionList = (props) => {
         />
       </ListItemButton>
       {collections &&
+        Array.isArray(collections) &&
         collections.length > 0 &&
         collections.map((collection) => {
           return (
@@ -32,6 +33,7 @@ const SearchSuggestionList = (props) => {
           );
         })}
       {products &&
+        Array.isArray(products) &&
         products.length > 0 &&
         products.map((product) => {
           return (

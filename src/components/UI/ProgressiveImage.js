@@ -3,10 +3,10 @@ import { styled } from "@mui/material/styles";
 
 import CardMedia from "@mui/material/CardMedia";
 
-const DisplayImage = styled(CardMedia)(({ theme }) => ({
+const DisplayImage = styled(CardMedia)({
   objectFit: "contain",
   transition: "all 0.2s",
-}));
+});
 
 const ProgressiveImage = (props) => {
   const { imageSrc, previewSrc } = props;

@@ -40,14 +40,20 @@ const ContentSection = styled("div")({
 const CartItems = (props) => {
   return (
     <>
-      {props.itemData && props.itemData.length > 0 ? (
+      {props.itemData &&
+      Array.isArray(props.itemData) &&
+      props.itemData.length > 0 ? (
         props.itemData.map((item) => {
           const size =
+            item.selectedOptions &&
+            Array.isArray(item.selectedOptions) &&
             item.selectedOptions.length > 0
               ? item.selectedOptions?.find((option) => option.type === "sizes")
               : null;
 
           const message =
+            item.selectedAddons &&
+            Array.isArray(item.selectedAddons) &&
             item.selectedAddons.length > 0
               ? item.selectedAddons?.find(
                   (addon) => addon.type === "addMessage"

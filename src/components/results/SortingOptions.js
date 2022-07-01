@@ -42,7 +42,7 @@ const SortingOptions = (props) => {
   };
 
   const renderSortingMenu = (options, select, activeSorting) => {
-    if (!options || options.length === 0) return;
+    if (!options || !Array.isArray(options) || !options.length) return;
     return options.map((option) => {
       const isSelected = Boolean(option.value === activeSorting);
       return (

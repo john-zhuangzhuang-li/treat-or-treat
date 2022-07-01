@@ -32,7 +32,7 @@ const SignInDialog = (props) => {
   };
 
   useEffect(() => {
-    if (signInInfo === "") {
+    if (!signInInfo) {
       setSignInHelperText("");
       setSignInInfoValid(false);
       return;

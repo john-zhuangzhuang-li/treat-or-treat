@@ -29,7 +29,7 @@ const FilterOptions = (props) => {
   const filterMenuId = filterMenuOpen ? "filter-menu" : undefined;
 
   const renderChipFilters = (allFilter, toggleFilter, activeFilters) => {
-    if (!allFilter || allFilter.length === 0) return;
+    if (!allFilter || !Array.isArray(allFilter) || !allFilter.length) return;
     return (
       <>
         {allFilter.map((filter) => {

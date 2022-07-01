@@ -63,8 +63,8 @@ const Products = (props) => {
 
   return (
     <>
-      {props.data && props.data.length > 0 ? (
-        props.data.map((product, index) => {
+      {props.data && Array.isArray(props.data) && props.data.length > 0 ? (
+        props.data.map((product) => {
           const onSale = Boolean(product.salePrice < product.regularPrice);
           const isFavorite = userCtx.favorites.some(
             (favorite) => favorite.id === product.id

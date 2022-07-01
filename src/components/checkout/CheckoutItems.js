@@ -83,14 +83,18 @@ const CheckoutItems = (props) => {
 
   return (
     <>
-      {props.data && props.data.length > 0 ? (
+      {props.data && Array.isArray(props.data) && props.data.length > 0 ? (
         props.data.map((item) => {
           const size =
+            item.selectedOptions &&
+            Array.isArray(item.selectedOptions) &&
             item.selectedOptions.length > 0
               ? item.selectedOptions?.find((option) => option.type === "sizes")
               : null;
 
           const message =
+            item.selectedAddons &&
+            Array.isArray(item.selectedAddons) &&
             item.selectedAddons.length > 0
               ? item.selectedAddons?.find(
                   (addon) => addon.type === "addMessage"

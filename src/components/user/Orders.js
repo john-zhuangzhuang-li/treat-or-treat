@@ -67,7 +67,7 @@ const Orders = (props) => {
   const orders = props.ordersData;
   return (
     <>
-      {orders && orders.length > 0 ? (
+      {orders && Array.isArray(orders) && orders.length > 0 ? (
         orders.map((order) => {
           return (
             <OrderCard key={order.timeStamp} variant="outlined" component="li">
