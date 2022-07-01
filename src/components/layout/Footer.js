@@ -63,7 +63,11 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterContent>
-        <IconButton size="large" color="inherit">
+        <IconButton
+          size="large"
+          color="inherit"
+          href="https://github.com/john-zhuangzhuang-li/treat-or-treat"
+        >
           <GitHubIcon fontSize="large" />
         </IconButton>
         <Typography variant="subtitle1" align="center" component="p">
