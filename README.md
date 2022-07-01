@@ -1,6 +1,6 @@
 # Treat or treat
 
-This project aims at building a fictional online dessert shop for React and MUI practice.
+This project aims at building a fictional online dessert shop for React and MUI practice.  
 View the demo [here](https://treat-or-treat.web.app/) on a computer or mobile device!
 
 ## Description
@@ -9,9 +9,9 @@ The goal is to create a fully responsive web app for an online store. While pres
 
 ### Features
 
-The responsive layout, made with a lot of care and effort, looks good on various screen sizes.
-Basic search, filter, and sort of products were implemented, with considerations taken to make these functions easy to use.
-Cart is presented as a side drawer of the main content so that it is easily accessible while shopping.
+The responsive layout, made with a lot of care and effort, looks good on various screen sizes.  
+Basic search, filter, and sort of products were implemented, with considerations taken to make these functions easy to use.  
+Cart is presented as a side drawer of the main content so that it is easily accessible while shopping.  
 Images in lists, slideshow, and background are loaded progressively to create a smooth browsing experience.
 
 ### Lessons learned
@@ -30,5 +30,5 @@ With the necessary dependencies installed, this project should be ready to run o
 
 ## Thank you
 
-Thank you for reading, and I appreciate that you took the time to check out my project!
+Thank you for reading, and I appreciate that you took the time to check out my project!  
 There is still a long way to go for this project and my learning, and I will keep updating as I learn more. Any advice for this project or front-end skills, in general, will be appreciated. Thanks!
