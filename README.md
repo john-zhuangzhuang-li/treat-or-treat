@@ -1,6 +1,7 @@
 # Treat or treat
 
 This project aims at building a fictional online dessert shop for React and MUI practice.
+View the demo [here](https://treat-or-treat.web.app/) on a computer or mobile device!
 
 ## Description
 
