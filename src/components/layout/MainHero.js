@@ -37,8 +37,8 @@ const MainHero = () => {
         previewSrc={theme.images.promoMainPreview}
         dataLinkTo={"/group/seasonal"}
         onPromoClick={handlePromoClick}
-        titleMain="Enjoy the weather"
-        titleSub="Summer selection available now"
+        titleMain="Enjoy the season"
+        titleSub="Seasonal selections available now"
       />
       <PromoCard
         variant="small"
