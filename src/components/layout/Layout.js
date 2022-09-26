@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import Navigation from "./Navigation";
@@ -30,7 +30,7 @@ const NavigationContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Layout = (props) => {
+const Layout = () => {
   const location = useLocation();
   useLayoutEffect(() => window.scrollTo(0, 0), [location.pathname]);
   return (
@@ -38,7 +38,7 @@ const Layout = (props) => {
       <NavigationContainer>
         <Navigation />
       </NavigationContainer>
-      {props.children}
+      <Outlet />
       <Footer />
     </LayoutContainer>
   );
