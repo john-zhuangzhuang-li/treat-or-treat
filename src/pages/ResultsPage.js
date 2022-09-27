@@ -21,6 +21,8 @@ import {
   DUMMY_FILTER_OPTIONS,
 } from "../store/DummyData";
 
+// NEXT STEP: USE LOADER TO GET 4 DATA SET DIRECTLY
+
 const ResultsMain = styled(Paper)(({ theme }) => ({
   gridColumn: "center",
   gridRow: "3 / 5",

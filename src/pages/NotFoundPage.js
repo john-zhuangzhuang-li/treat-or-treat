@@ -8,6 +8,8 @@ import CardMedia from "@mui/material/CardMedia";
 
 import PageBackground from "../components/UI/PageBackground";
 
+// NEXT STEP: MIGHT CHANGE THIS TO AN ERROR PAGE ALSO FOR LOADER FAILURE
+
 const PageTitle = styled("div")(({ theme }) => ({
   gridColumn: "center",
   gridRow: "2 / 3",

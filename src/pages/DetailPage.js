@@ -171,6 +171,8 @@ const DetailPage = () => {
   const [previewImages, setPreviewImages] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
+  // NEXT STEP: USE LOADER TO GET URL > PARAMS > COLLECTION DATA, AND KEEP CURRENT CODE
+
   useEffect(() => {
     setActiveAnimation("none");
     setActiveStep(0);

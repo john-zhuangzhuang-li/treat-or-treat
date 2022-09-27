@@ -11,7 +11,7 @@ import UserProvider from "./store/UserProvider";
 
 import StyledThemeProvider from "./store/StyledThemeProvider";
 import Layout from "./components/layout/Layout";
-import Loading from "./components/UI/Loading";
+// import Loading from "./components/UI/Loading";
 
 import MainPage from "./pages/MainPage";
 import DetailPage from "./pages/DetailPage";
@@ -49,7 +49,6 @@ const App = () => {
       <UserProvider>
         <CartProvider>
           <RouterProvider router={router} />
-
           {/* <Layout>
             <Suspense fallback={<Loading />}>
               <Routes>

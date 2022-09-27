@@ -12,6 +12,8 @@ import {
   DUMMY_COLLECTION_LIST,
 } from "../store/DummyData";
 
+// NEXT STEP: USE LOADER TO GET 3 DATA SET DIRECTLY
+
 const Main = styled(Box)(({ theme }) => ({
   gridColumn: "center",
   display: "grid",

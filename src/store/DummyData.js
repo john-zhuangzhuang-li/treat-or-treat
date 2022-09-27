@@ -129,6 +129,8 @@ const DUMMY_PRODUCT_FEATURED = [];
 const DUMMY_PRODUCT_ONSALE = [];
 const DUMMY_COLLECTION_LIST = [];
 
+// WILL HAVE TO MOVE THIS LOGIC TO ALL PLACES WITH URL IF USING JSON
+
 const additionalImages = [];
 for (let i = 1; i < 6; i++) {
   additionalImages.push(`${DUMMY_URL}/DUMMY/additional-${i}-lg.jpg`);
@@ -307,3 +309,19 @@ const DUMMY_PHOTO_CREDITS = photoCredits.split(/\r?\n/).map((credit) => {
 });
 
 export { DUMMY_PHOTO_CREDITS };
+
+console.log(DUMMY_PHOTO_CREDITS);
+
+// FOR REMOTE DATA SETUP ONLY
+
+export const setupRemoteData = async (data) => {
+  const response = await fetch("", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+  const res = await response.json();
+  console.log(res);
+};
