@@ -130,6 +130,8 @@ const DUMMY_PRODUCT_ONSALE = [];
 const DUMMY_COLLECTION_LIST = [];
 
 // WILL HAVE TO MOVE THIS LOGIC TO ALL PLACES WITH URL IF USING JSON
+// NEED TO OUT SOURCE SVG FILES TO OTHER OBJECT
+// NOTE: ADDED IMGS, IMG LAND FOR COL, IMG LAND FOR PRODUCT, IMG SQ, SQ-S
 
 const additionalImages = [];
 for (let i = 1; i < 6; i++) {
@@ -219,6 +221,7 @@ export {
   DUMMY_FILTER_OPTIONS,
   DUMMY_USER_CONTACTS,
   DUMMY_USER_ADDRESSES,
+  DUMMY_URL,
 };
 
 const photoCredits = `Photo by <a href="https://unsplash.com/@rodolfomarques?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rodolfo Marques</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
