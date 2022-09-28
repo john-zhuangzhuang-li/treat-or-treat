@@ -310,18 +310,34 @@ const DUMMY_PHOTO_CREDITS = photoCredits.split(/\r?\n/).map((credit) => {
 
 export { DUMMY_PHOTO_CREDITS };
 
-console.log(DUMMY_PHOTO_CREDITS);
-
 // FOR REMOTE DATA SETUP ONLY
 
-export const setupRemoteData = async (data) => {
-  const response = await fetch("", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "content-type": "application/json",
-    },
-  });
-  const res = await response.json();
-  console.log(res);
+const setupRemoteData = async (location, data) => {
+  try {
+    const response = await fetch(location, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      console.log(response);
+      throw new Error("Something went wrong...");
+    }
+    const remoteData = await response.json();
+    console.log(remoteData);
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+const creditEntries = DUMMY_PHOTO_CREDITS.map((creditItem, index) => [
+  `credit-item-${index < 9 ? `0${index + 1}` : index + 1}`,
+  creditItem,
+]);
+const REMOTE_DATA_CREDITS = Object.fromEntries(creditEntries);
+const REMOTE_LOCATION_CREDITS =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/credits.json";
+
+export { setupRemoteData, REMOTE_LOCATION_CREDITS, REMOTE_DATA_CREDITS };

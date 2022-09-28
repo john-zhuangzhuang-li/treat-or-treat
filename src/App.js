@@ -10,7 +10,7 @@ import CartProvider from "./store/CartProvider";
 import UserProvider from "./store/UserProvider";
 
 import StyledThemeProvider from "./store/StyledThemeProvider";
-import Layout from "./components/layout/Layout";
+import Layout, { loader as creditsLoader } from "./components/layout/Layout";
 // import Loading from "./components/UI/Loading";
 
 import MainPage from "./pages/MainPage";
@@ -29,7 +29,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} loader={creditsLoader}>
       <Route index element={<MainPage />} />
       <Route path="/detail" element={<DetailPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />

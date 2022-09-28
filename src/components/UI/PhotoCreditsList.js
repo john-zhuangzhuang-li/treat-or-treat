@@ -5,21 +5,21 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 
-import { DUMMY_PHOTO_CREDITS } from "../../store/DummyData";
+// import { DUMMY_PHOTO_CREDITS } from "../../store/DummyData";
 
-const PhotoCreditsList = () => {
+const PhotoCreditsList = ({ data }) => {
   return (
     <>
       <List>
-        {DUMMY_PHOTO_CREDITS.map((credit, index, credits) => {
+        {Object.entries(data).map((credit, index, credits) => {
           return (
-            <Box key={`item-${credit.artist}`} component="li">
+            <Box key={credit[0]} component="li">
               <ListItem component="div">
                 <ListItemText>
                   {`Photo by `}
-                  <Link href={credit.artistUrl}>{credit.artist}</Link>
+                  <Link href={credit[1].artistUrl}>{credit[1].artist}</Link>
                   {` on `}
-                  <Link href={credit.companyUrl}>{credit.company}</Link>
+                  <Link href={credit[1].companyUrl}>{credit[1].company}</Link>
                 </ListItemText>
               </ListItem>
               {index < credits.length - 1 && <Divider />}

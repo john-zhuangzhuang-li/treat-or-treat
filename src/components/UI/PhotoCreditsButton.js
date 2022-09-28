@@ -17,7 +17,7 @@ const LinkButton = styled(Link)(({ theme }) => ({
   transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
 }));
 
-const PhotoCreditsButton = () => {
+const PhotoCreditsButton = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
@@ -48,7 +48,7 @@ const PhotoCreditsButton = () => {
             For all photos used in this project. Let me know if I missed any
             artist :P
           </DialogContentText>
-          <PhotoCreditsList />
+          <PhotoCreditsList data={props.data} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>close</Button>

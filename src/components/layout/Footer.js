@@ -59,7 +59,7 @@ const SecondaryBackground = styled("figure")(({ theme }) => ({
   zIndex: "1",
 }));
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <FooterContainer>
       <FooterContent>
@@ -73,7 +73,7 @@ const Footer = () => {
         <Typography variant="subtitle1" align="center" component="p">
           Built by John Li for React and MUI practice
         </Typography>
-        <PhotoCreditsButton />
+        <PhotoCreditsButton data={props.creditsData} />
       </FooterContent>
       <SecondaryBackground></SecondaryBackground>
     </FooterContainer>

@@ -1,10 +1,13 @@
 import { useLayoutEffect } from "react";
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet, useLoaderData } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 import Box from "@mui/material/Box";
+
+// FOR LOADER TEST
+import { getCredits } from "../../util/api";
 
 const LayoutContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -31,6 +34,7 @@ const NavigationContainer = styled(Box)(({ theme }) => ({
 }));
 
 const Layout = () => {
+  const loaderData = useLoaderData();
   const location = useLocation();
   useLayoutEffect(() => window.scrollTo(0, 0), [location.pathname]);
   return (
@@ -39,9 +43,15 @@ const Layout = () => {
         <Navigation />
       </NavigationContainer>
       <Outlet />
-      <Footer />
+      <Footer creditsData={loaderData} />
     </LayoutContainer>
   );
 };
 
 export default Layout;
+
+// FOR LOADER TEST
+
+export const loader = () => {
+  return getCredits();
+};

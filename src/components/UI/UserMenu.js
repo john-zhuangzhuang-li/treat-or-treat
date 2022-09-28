@@ -9,6 +9,13 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import UserContext from "../../store/UserContext";
 
+// FOR REMOTE DATA SETUP ONLY
+import {
+  setupRemoteData,
+  REMOTE_LOCATION_CREDITS,
+  REMOTE_DATA_CREDITS,
+} from "../../store/DummyData";
+
 const UserMenu = (props) => {
   const navigate = useNavigate();
   const userCtx = useContext(UserContext);
@@ -82,6 +89,17 @@ const UserMenu = (props) => {
         {userCtx.signedIn && (
           <MenuItem onClick={handleSignOutOpen}>Sign Out</MenuItem>
         )}
+
+        {/* FOR REMOTE DATA SETUP ONLY */}
+        <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_CREDITS,
+            REMOTE_DATA_CREDITS
+          )}
+        >
+          SETUP: CREDITS
+        </MenuItem>
       </Menu>
     </>
   );
