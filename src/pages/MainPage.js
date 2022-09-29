@@ -7,7 +7,7 @@ import Title from "../components/UI/Title";
 import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 
-import { DUMMY_COLLECTION_LIST } from "../store/DummyData";
+import { DUMMY_COLLECTION_LIST } from "../util/dummy";
 
 import { getPromo } from "../util/api";
 

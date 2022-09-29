@@ -9,7 +9,7 @@ import FavoriteButton from "./FavoriteButton";
 import SaleLabel from "./SaleLabel";
 import ProgressiveImage from "./ProgressiveImage";
 
-import { DUMMY_URL } from "../../store/DummyData";
+import { DUMMY_URL } from "../../util/dummy";
 
 import UserContext from "../../store/UserContext";
 

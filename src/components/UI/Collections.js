@@ -4,7 +4,7 @@ import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
-import { DUMMY_URL, DUMMY_COLLECTION_LOGOS } from "../../store/DummyData";
+import { DUMMY_URL, DUMMY_COLLECTION_LOGOS } from "../../util/dummy";
 
 const CollectionCard = styled(Card)(({ theme }) => ({
   backgroundSize: "cover",

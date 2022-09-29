@@ -22,7 +22,7 @@ import {
   REMOTE_LOCATION_FEATURED,
   REMOTE_DATA_ONSALE,
   REMOTE_LOCATION_ONSALE,
-} from "../../store/DummyData";
+} from "../../util/dummy";
 
 const UserMenu = (props) => {
   const navigate = useNavigate();

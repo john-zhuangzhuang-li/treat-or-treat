@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { DUMMY_URL } from "./DummyData";
+import { DUMMY_URL } from "../util/dummy";
 
 const theme = createTheme({
   breakpoints: {

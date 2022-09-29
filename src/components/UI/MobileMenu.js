@@ -26,7 +26,7 @@ import Collections from "./Collections";
 
 import UserContext from "../../store/UserContext";
 
-import { DUMMY_COLLECTION_LIST } from "../../store/DummyData";
+import { DUMMY_COLLECTION_LIST } from "../../util/dummy";
 
 const MobileMenu = (props) => {
   const navigate = useNavigate();

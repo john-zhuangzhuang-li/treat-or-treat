@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 
 import ProgressiveImage from "../UI/ProgressiveImage";
 
-import { DUMMY_URL } from "../../store/DummyData";
+import { DUMMY_URL } from "../../util/dummy";
 
 const DisplayImages = ({ data: images, previewData: previewImages }) => {
   return (

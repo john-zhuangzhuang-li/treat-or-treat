@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import UserContext from "./UserContext";
 
-import { DUMMY_USER_CONTACTS, DUMMY_USER_ADDRESSES } from "./DummyData";
+import { DUMMY_USER_CONTACTS, DUMMY_USER_ADDRESSES } from "../util/dummy";
 
 const defaultUser = {
   name: "guest",

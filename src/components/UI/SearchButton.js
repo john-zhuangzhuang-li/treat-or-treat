@@ -19,7 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchSuggestionList from "./SearchSuggestionList";
 import Loading from "./Loading";
 
-import { DUMMY_PRODUCT_DATA, DUMMY_PRODUCT_ALL } from "../../store/DummyData";
+import { DUMMY_PRODUCT_DATA, DUMMY_PRODUCT_ALL } from "../../util/dummy";
 
 const SearchDialogTitle = styled(DialogTitle)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {

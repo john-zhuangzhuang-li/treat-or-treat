@@ -18,10 +18,11 @@ const FooterContainer = styled("footer")(({ theme }) => ({
   padding: theme.spacing(6, 8),
   marginTop: theme.spacing(6),
   borderRadius: theme.spacing(2, 2, 0, 0),
-  transition: "all 0.3s",
+  transition: "transform 0.3s",
   overflow: "hidden",
   "&:hover > figure": {
     transform: "translateX(-50%) scale(30, 20)",
+    width: "10.5rem",
   },
   "&:hover button": {
     color: "inherit",
@@ -51,11 +52,13 @@ const SecondaryBackground = styled("figure")(({ theme }) => ({
   borderRadius: "50%",
   height: "3rem",
   width: "3rem",
+  opacity: "1",
   position: "absolute",
   bottom: "-3.5rem",
   left: "50%",
   transform: "translateX(-50%) scale(1)",
-  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+  transition:
+    "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s",
   zIndex: "1",
 }));
 

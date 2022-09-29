@@ -14,7 +14,7 @@ import QuantitySelect from "../UI/QuantitySelect";
 import MessageBadge from "../UI/MessageBadge";
 import ProgressiveImage from "../UI/ProgressiveImage";
 
-import { DUMMY_URL } from "../../store/DummyData";
+import { DUMMY_URL } from "../../util/dummy";
 
 const ItemCard = styled(Card)(({ theme }) => ({
   display: "grid",

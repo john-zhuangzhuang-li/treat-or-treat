@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import QuantitySelect from "../UI/QuantitySelect";
 import MessageBadge from "../UI/MessageBadge";
 
-import { DUMMY_URL } from "../../store/DummyData";
+import { DUMMY_URL } from "../../util/dummy";
 
 const Item = styled("li")(({ theme }) => ({
   display: "grid",

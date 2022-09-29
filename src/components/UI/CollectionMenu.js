@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Collections from "./Collections";
 
-import { DUMMY_COLLECTION_LIST } from "../../store/DummyData";
+import { DUMMY_COLLECTION_LIST } from "../../util/dummy";
 
 const CollectionMenuBase = styled("div")(({ theme }) => ({
   display: "flex",

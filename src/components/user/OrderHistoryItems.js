@@ -10,7 +10,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import MessageBadge from "../UI/MessageBadge";
 
-import { DUMMY_URL } from "../../store/DummyData";
+import { DUMMY_URL } from "../../util/dummy";
 
 const HistoryItem = styled(Card)(({ theme }) => ({
   display: "grid",

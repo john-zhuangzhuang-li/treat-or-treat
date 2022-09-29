@@ -18,7 +18,7 @@ import {
   DUMMY_SORTING_OPTIONS,
   DUMMY_FILTER_OPTIONS,
   DUMMY_URL,
-} from "../store/DummyData";
+} from "../util/dummy";
 
 import { getCollections, getProducts } from "../util/api";
 

@@ -16,7 +16,7 @@ import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 import DisplayImages from "../components/detail/DisplayImages";
 
-import { DUMMY_URL } from "../store/DummyData";
+import { DUMMY_URL } from "../util/dummy";
 
 import { getProductDetails } from "../util/api";
 
