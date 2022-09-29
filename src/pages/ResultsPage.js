@@ -15,18 +15,12 @@ import FilterOptions from "../components/results/FilterOptions";
 import UserContext from "../store/UserContext";
 
 import {
-  // DUMMY_PRODUCT_DATA,
-  // DUMMY_PRODUCT_ALL,
   DUMMY_SORTING_OPTIONS,
   DUMMY_FILTER_OPTIONS,
   DUMMY_URL,
 } from "../store/DummyData";
 
-// FOR LOADER
-
 import { getCollections, getProducts } from "../util/api";
-
-// NEXT STEP: USE LOADER TO GET 4 DATA SET DIRECTLY
 
 const ResultsMain = styled(Paper)(({ theme }) => ({
   gridColumn: "center",

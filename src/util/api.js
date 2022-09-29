@@ -45,3 +45,16 @@ export const getProducts = async () => {
     console.log(error);
   }
 };
+
+export const getProductDetails = async (productId) => {
+  const id = productId.slice(0, -3);
+  console.log("DETAILS LOADER RUN");
+  const response = await fetch(
+    `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${id}.json`
+  );
+  if (!response.ok) {
+    console.log(response);
+    throw new Error("Something went wrong...");
+  }
+  return response.json();
+};

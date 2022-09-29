@@ -109,7 +109,7 @@ const OrderHistoryItems = (props) => {
           return (
             <HistoryItem key={item.timeStamp} variant="outlined" component="li">
               <ItemImageContainer>
-                {!matchesDownSm && <MessageBadge />}
+                {message && !matchesDownSm && <MessageBadge />}
                 <ItemImage
                   component="img"
                   image={`${DUMMY_URL}${item.imageSquareSmall}`}

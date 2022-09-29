@@ -15,7 +15,7 @@ import ResultsPage, {
   collectionsLoader,
   productsLoader,
 } from "./pages/ResultsPage";
-import DetailPage from "./pages/DetailPage";
+import DetailPage, { loader as detailsLoader } from "./pages/DetailPage";
 // import Loading from "./components/UI/Loading";
 
 import MainPage from "./pages/MainPage";
@@ -57,7 +57,12 @@ const router = createBrowserRouter(
         loader={productsLoader}
         errorElement={<NotFoundPage />}
       />
-      <Route path="/product/:product" element={<DetailPage />} />
+      <Route
+        path="/product/:product"
+        element={<DetailPage />}
+        loader={detailsLoader}
+        errorElement={<NotFoundPage />}
+      />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/account" element={<UserPage />} />
       {/* <Route path="/detail" element={<DetailPage />} /> */}

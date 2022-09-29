@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import Typography from "@mui/material/Typography";
@@ -17,6 +17,8 @@ import Collections from "../components/UI/Collections";
 import DisplayImages from "../components/detail/DisplayImages";
 
 import { DUMMY_PRODUCT_DATA, DUMMY_URL } from "../store/DummyData";
+
+import { getProductDetails } from "../util/api";
 
 const DetailMainContainer = styled("div")(({ theme }) => ({
   gridColumn: "full",
@@ -162,6 +164,7 @@ const RelatedCollection = styled("div")(({ theme }) => ({
 const DetailPage = () => {
   const params = useParams();
   const productUrl = params.product;
+  const loaderData = useLoaderData();
 
   const [activeAnimation, setActiveAnimation] = useState("none");
   const [activeStep, setActiveStep] = useState(0);
@@ -171,16 +174,15 @@ const DetailPage = () => {
   const [previewImages, setPreviewImages] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
-  // NEXT STEP: USE LOADER TO GET URL > PARAMS > COLLECTION LV DATA, AND KEEP CURRENT CODE
-
   useEffect(() => {
     setActiveAnimation("none");
     setActiveStep(0);
-    const collectionKey = productUrl.slice(0, -3);
-    const currentCollection = DUMMY_PRODUCT_DATA[collectionKey];
+    // const collectionKey = productUrl.slice(0, -3);
+    // const currentCollection = DUMMY_PRODUCT_DATA[collectionKey];
 
-    const { id, title, url, products, imageLandscapeMedium } =
-      currentCollection;
+    if (!loaderData) return;
+
+    const { id, title, url, products, imageLandscapeMedium } = loaderData;
 
     const currentProduct = products.find(
       (product) => product.url === productUrl
@@ -205,7 +207,7 @@ const DetailPage = () => {
     setProductImages([...currentProductImages]);
     setPreviewImages([...currentPreviews]);
     setRelatedProducts([...restRelatedProducts]);
-  }, [productUrl]);
+  }, [productUrl, loaderData]);
 
   const handleNext = () => {
     setActiveAnimation("next");
@@ -310,3 +312,8 @@ const DetailPage = () => {
   );
 };
 export default DetailPage;
+
+export const loader = ({ params }) => {
+  const productId = params.product;
+  return getProductDetails(productId);
+};
