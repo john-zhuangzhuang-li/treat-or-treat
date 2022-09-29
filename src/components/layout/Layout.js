@@ -52,6 +52,7 @@ export default Layout;
 
 // FOR LOADER TEST
 
-export const loader = () => {
-  return getCredits();
+export const loader = async () => {
+  const resData = await getCredits();
+  return resData;
 };

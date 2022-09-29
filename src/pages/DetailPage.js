@@ -16,7 +16,7 @@ import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 import DisplayImages from "../components/detail/DisplayImages";
 
-import { DUMMY_PRODUCT_DATA, DUMMY_URL } from "../store/DummyData";
+import { DUMMY_URL } from "../store/DummyData";
 
 import { getProductDetails } from "../util/api";
 
@@ -164,15 +164,23 @@ const RelatedCollection = styled("div")(({ theme }) => ({
 const DetailPage = () => {
   const params = useParams();
   const productUrl = params.product;
+
   const loaderData = useLoaderData();
+  const {
+    displayCollection,
+    displayProduct,
+    productImages,
+    previewImages,
+    relatedProducts,
+  } = loaderData;
 
   const [activeAnimation, setActiveAnimation] = useState("none");
   const [activeStep, setActiveStep] = useState(0);
-  const [displayCollection, setDisplayCollection] = useState({});
-  const [displayProduct, setDisplayProduct] = useState({});
-  const [productImages, setProductImages] = useState([]);
-  const [previewImages, setPreviewImages] = useState([]);
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  // const [displayCollection, setDisplayCollection] = useState({});
+  // const [displayProduct, setDisplayProduct] = useState({});
+  // const [productImages, setProductImages] = useState([]);
+  // const [previewImages, setPreviewImages] = useState([]);
+  // const [relatedProducts, setRelatedProducts] = useState([]);
 
   useEffect(() => {
     setActiveAnimation("none");
@@ -180,34 +188,34 @@ const DetailPage = () => {
     // const collectionKey = productUrl.slice(0, -3);
     // const currentCollection = DUMMY_PRODUCT_DATA[collectionKey];
 
-    if (!loaderData) return;
+    // if (!loaderData) return;
 
-    const { id, title, url, products, imageLandscapeMedium } = loaderData;
+    // const { id, title, url, products, imageLandscapeMedium } = loaderData;
 
-    const currentProduct = products.find(
-      (product) => product.url === productUrl
-    );
+    // const currentProduct = products.find(
+    //   (product) => product.url === productUrl
+    // );
 
-    const restRelatedProducts = products
-      .filter((product) => product.url !== productUrl)
-      .filter((product, index) => (index + 1) % 2 === 0);
+    // const restRelatedProducts = products
+    //   .filter((product) => product.url !== productUrl)
+    //   .filter((product, index) => (index + 1) % 2 === 0);
 
-    const currentProductImages = [
-      currentProduct.imageLandscapeLarge,
-      ...currentProduct.additionalImages,
-    ];
+    // const currentProductImages = [
+    //   currentProduct.imageLandscapeLarge,
+    //   ...currentProduct.additionalImages,
+    // ];
 
-    const currentPreviews = [
-      currentProduct.imageLandscapeLargePreview,
-      ...currentProduct.additionalImagesPreview,
-    ];
+    // const currentPreviews = [
+    //   currentProduct.imageLandscapeLargePreview,
+    //   ...currentProduct.additionalImagesPreview,
+    // ];
 
-    setDisplayCollection({ id, title, url, imageLandscapeMedium });
-    setDisplayProduct(currentProduct);
-    setProductImages([...currentProductImages]);
-    setPreviewImages([...currentPreviews]);
-    setRelatedProducts([...restRelatedProducts]);
-  }, [productUrl, loaderData]);
+    // setDisplayCollection({ id, title, url, imageLandscapeMedium });
+    // setDisplayProduct(currentProduct);
+    // setProductImages([...currentProductImages]);
+    // setPreviewImages([...currentPreviews]);
+    // setRelatedProducts([...restRelatedProducts]);
+  }, [productUrl]);
 
   const handleNext = () => {
     setActiveAnimation("next");
@@ -313,7 +321,42 @@ const DetailPage = () => {
 };
 export default DetailPage;
 
-export const loader = ({ params }) => {
+export const loader = async ({ params }) => {
   const productId = params.product;
-  return getProductDetails(productId);
+  const detailsData = await getProductDetails(productId);
+
+  if (!detailsData) throw new Error("Something went wrong...");
+
+  const { id, title, url, products, imageLandscapeMedium } = detailsData;
+
+  const currentProduct = products.find((product) => product.url === productId);
+
+  if (!currentProduct) throw new Error("Something went wrong...");
+
+  const restRelatedProducts = products
+    .filter((product) => product.url !== productId)
+    .filter((product, index) => (index + 1) % 2 === 0);
+
+  const currentProductImages = [
+    currentProduct.imageLandscapeLarge,
+    ...currentProduct.additionalImages,
+  ];
+
+  const currentPreviews = [
+    currentProduct.imageLandscapeLargePreview,
+    ...currentProduct.additionalImagesPreview,
+  ];
+
+  return {
+    displayCollection: { id, title, url, imageLandscapeMedium },
+    displayProduct: currentProduct,
+    productImages: [...currentProductImages],
+    previewImages: [...currentPreviews],
+    relatedProducts: [...restRelatedProducts],
+  };
 };
+
+// export const loader = ({ params }) => {
+//   const productId = params.product;
+// return getProductDetails(productId);
+// };

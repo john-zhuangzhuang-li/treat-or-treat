@@ -1,3 +1,4 @@
+import { useLoaderData } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import Box from "@mui/material/Box";
@@ -6,11 +7,9 @@ import Title from "../components/UI/Title";
 import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 
-import {
-  DUMMY_PRODUCT_FEATURED,
-  DUMMY_PRODUCT_ONSALE,
-  DUMMY_COLLECTION_LIST,
-} from "../store/DummyData";
+import { DUMMY_COLLECTION_LIST } from "../store/DummyData";
+
+import { getPromo } from "../util/api";
 
 // NEXT STEP: USE LOADER TO GET 3 DATA SET DIRECTLY
 
@@ -64,6 +63,7 @@ const PromoList = styled(Box)(({ theme }) => ({
 }));
 
 const MainPage = () => {
+  const { featuredData, onSaleData } = useLoaderData();
   return (
     <>
       <MainHero />
@@ -71,7 +71,7 @@ const MainPage = () => {
         <MainGrid>
           <Title textMain={"Featured"} textSub={"Treat-or-treat essentials"} />
           <ProductList>
-            <Products data={DUMMY_PRODUCT_FEATURED} />
+            <Products data={featuredData} />
           </ProductList>
           <Title textMain={"Collections"} textSub={"Browse by collections"} />
           <PromoList>
@@ -79,7 +79,7 @@ const MainPage = () => {
           </PromoList>
           <Title textMain={"On Sale"} textSub={"Latest deals to grab"} />
           <ProductList>
-            <Products data={DUMMY_PRODUCT_ONSALE} />
+            <Products data={onSaleData} />
           </ProductList>
         </MainGrid>
       </Main>
@@ -88,3 +88,13 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+export const loader = async () => {
+  const featuredRes = await getPromo("featured");
+  if (!featuredRes) throw new Error("Something went wrong...");
+  const onSaleRes = await getPromo("on-sale");
+  if (!onSaleRes) throw new Error("Something went wrong...");
+  const featuredData = Object.values(featuredRes);
+  const onSaleData = Object.values(onSaleRes);
+  return { featuredData, onSaleData };
+};

@@ -18,6 +18,10 @@ import {
   REMOTE_LOCATION_COLLECTIONS,
   REMOTE_DATA_PRODUCT,
   REMOTE_LOCATION_PRODUCTS,
+  REMOTE_DATA_FEATURED,
+  REMOTE_LOCATION_FEATURED,
+  REMOTE_DATA_ONSALE,
+  REMOTE_LOCATION_ONSALE,
 } from "../../store/DummyData";
 
 const UserMenu = (props) => {
@@ -113,7 +117,7 @@ const UserMenu = (props) => {
         >
           SETUP: COLLECTIONS
         </MenuItem> */}
-        <MenuItem
+        {/* <MenuItem
           onClick={setupRemoteData.bind(
             null,
             REMOTE_LOCATION_PRODUCTS,
@@ -121,7 +125,25 @@ const UserMenu = (props) => {
           )}
         >
           SETUP: PRODUCTS
+        </MenuItem> */}
+        {/* <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_FEATURED,
+            REMOTE_DATA_FEATURED
+          )}
+        >
+          SETUP: GROUP1
         </MenuItem>
+        <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_ONSALE,
+            REMOTE_DATA_ONSALE
+          )}
+        >
+          SETUP: GROUP2
+        </MenuItem> */}
       </Menu>
     </>
   );

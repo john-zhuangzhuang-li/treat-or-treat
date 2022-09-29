@@ -363,6 +363,24 @@ const REMOTE_DATA_PRODUCT = Object.fromEntries(productEntries);
 const REMOTE_LOCATION_PRODUCTS =
   "https://treat-or-treat-default-rtdb.firebaseio.com/products.json";
 
+const featuredEntries = DUMMY_PRODUCT_FEATURED.map((featuredItem, index) => [
+  `featured-${index < 9 ? `0${index + 1}` : index + 1}`,
+  featuredItem,
+]);
+
+const REMOTE_DATA_FEATURED = Object.fromEntries(featuredEntries);
+const REMOTE_LOCATION_FEATURED =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/featured.json";
+
+const onSaleEntries = DUMMY_PRODUCT_ONSALE.map((onSaleItem, index) => [
+  `on-sale-${index < 9 ? `0${index + 1}` : index + 1}`,
+  onSaleItem,
+]);
+
+const REMOTE_DATA_ONSALE = Object.fromEntries(onSaleEntries);
+const REMOTE_LOCATION_ONSALE =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/on-sale.json";
+
 export {
   setupRemoteData,
   REMOTE_LOCATION_CREDITS,
@@ -370,4 +388,8 @@ export {
   REMOTE_LOCATION_COLLECTIONS,
   REMOTE_DATA_PRODUCT,
   REMOTE_LOCATION_PRODUCTS,
+  REMOTE_DATA_FEATURED,
+  REMOTE_LOCATION_FEATURED,
+  REMOTE_DATA_ONSALE,
+  REMOTE_LOCATION_ONSALE,
 };

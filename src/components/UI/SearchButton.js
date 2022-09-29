@@ -73,6 +73,10 @@ const SearchButton = () => {
 
   useEffect(() => {
     // SUGGESTION EFFECTS
+
+    // NEXT: SHOULD DO A CUSTOM HOOK IN HERE TO HANDLE IT
+    // CAN BE GOOD TO COMPARE WITH LOADER
+
     if (!searchInfoValid) {
       setSearchLoading(false);
       setSearchSuggestion({});

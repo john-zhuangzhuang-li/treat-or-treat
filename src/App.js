@@ -16,19 +16,20 @@ import ResultsPage, {
   productsLoader,
 } from "./pages/ResultsPage";
 import DetailPage, { loader as detailsLoader } from "./pages/DetailPage";
-// import Loading from "./components/UI/Loading";
+import MainPage, { loader as promoLoader } from "./pages/MainPage";
 
-import MainPage from "./pages/MainPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import UserPage from "./pages/UserPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import ErrorPage from "./pages/ErrorPage";
+
+// import Loading from "./components/UI/Loading";
 
 // const MainPage = React.lazy(() => import("./pages/MainPage"));
 // const DetailPage = React.lazy(() => import("./pages/DetailPage"));
 // const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage"));
 // const ResultsPage = React.lazy(() => import("./pages/ResultsPage"));
 // const UserPage = React.lazy(() => import("./pages/UserPage"));
-// const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+// const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,37 +37,41 @@ const router = createBrowserRouter(
       path="/"
       element={<Layout />}
       loader={creditsLoader}
-      errorElement={<NotFoundPage />}
+      errorElement={<ErrorPage />}
     >
-      <Route index element={<MainPage />} />
+      <Route
+        index
+        element={<MainPage />}
+        loader={promoLoader}
+        errorElement={<ErrorPage />}
+      />
       <Route
         path="/collection/:collection"
         element={<ResultsPage />}
         loader={collectionsLoader}
-        errorElement={<NotFoundPage />}
+        errorElement={<ErrorPage />}
       />
       <Route
         path="/group/:group"
         element={<ResultsPage />}
         loader={productsLoader}
-        errorElement={<NotFoundPage />}
+        errorElement={<ErrorPage />}
       />
       <Route
         path="/results/:keyword"
         element={<ResultsPage />}
         loader={productsLoader}
-        errorElement={<NotFoundPage />}
+        errorElement={<ErrorPage />}
       />
       <Route
         path="/product/:product"
         element={<DetailPage />}
         loader={detailsLoader}
-        errorElement={<NotFoundPage />}
+        errorElement={<ErrorPage />}
       />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/account" element={<UserPage />} />
-      {/* <Route path="/detail" element={<DetailPage />} /> */}
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );
@@ -91,7 +96,7 @@ const App = () => {
                 />
                 <Route path="/group/:group" element={<ResultsPage />} />
                 <Route path="/results/:keyword" element={<ResultsPage />} />
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Suspense>
           </Layout> */}

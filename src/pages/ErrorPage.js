@@ -35,7 +35,7 @@ const NotFoundPage = () => {
       <PageBackground imageSrc={theme.backgrounds.general3} />
       <PageTitle>
         <Typography variant="titleMain1" component="h1">
-          404
+          Oops
         </Typography>
         <Card
           sx={{

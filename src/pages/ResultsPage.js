@@ -297,11 +297,15 @@ const ResultsPage = () => {
 
 export default ResultsPage;
 
-export const collectionsLoader = ({ params }) => {
+export const collectionsLoader = async ({ params }) => {
   const collectionName = params.collection;
-  return getCollections(collectionName);
+  const resData = await getCollections(collectionName);
+  if (!resData) throw new Error("Something went wrong...");
+  return resData;
 };
 
-export const productsLoader = () => {
-  return getProducts();
+export const productsLoader = async () => {
+  const resData = await getProducts();
+  if (!resData) throw new Error("Something went wrong...");
+  return resData;
 };

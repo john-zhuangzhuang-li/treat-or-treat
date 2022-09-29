@@ -1,49 +1,37 @@
 export const getCredits = async () => {
-  try {
-    console.log("CREDITS LOADER RUN");
-    const response = await fetch(
-      "https://treat-or-treat-default-rtdb.firebaseio.com/credits.json"
-    );
-    if (!response.ok) {
-      console.log(response);
-      throw new Error("Something went wrong...");
-    }
-    return response.json();
-  } catch (error) {
-    console.log(error);
+  console.log("CREDITS LOADER RUN");
+  const response = await fetch(
+    "https://treat-or-treat-default-rtdb.firebaseio.com/credits.json"
+  );
+  if (!response.ok) {
+    console.log(response);
+    throw new Error("Something went wrong...");
   }
+  return response.json();
 };
 
 export const getCollections = async (collectionName) => {
-  try {
-    console.log("COLLECTIONS LOADER RUN");
-    const response = await fetch(
-      `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${collectionName}.json`
-    );
-    if (!response.ok) {
-      console.log(response);
-      throw new Error("Something went wrong...");
-    }
-    return response.json();
-  } catch (error) {
-    console.log(error);
+  console.log("COLLECTIONS LOADER RUN");
+  const response = await fetch(
+    `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${collectionName}.json`
+  );
+  if (!response.ok) {
+    console.log(response);
+    throw new Error("Something went wrong...");
   }
+  return response.json();
 };
 
 export const getProducts = async () => {
-  try {
-    console.log("PRODUCTS LOADER RUN");
-    const response = await fetch(
-      "https://treat-or-treat-default-rtdb.firebaseio.com/products.json"
-    );
-    if (!response.ok) {
-      console.log(response);
-      throw new Error("Something went wrong...");
-    }
-    return response.json();
-  } catch (error) {
-    console.log(error);
+  console.log("PRODUCTS LOADER RUN");
+  const response = await fetch(
+    "https://treat-or-treat-default-rtdb.firebaseio.com/products.json"
+  );
+  if (!response.ok) {
+    console.log(response);
+    throw new Error("Something went wrong...");
   }
+  return response.json();
 };
 
 export const getProductDetails = async (productId) => {
@@ -51,6 +39,18 @@ export const getProductDetails = async (productId) => {
   console.log("DETAILS LOADER RUN");
   const response = await fetch(
     `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${id}.json`
+  );
+  if (!response.ok) {
+    console.log(response);
+    throw new Error("Something went wrong...");
+  }
+  return response.json();
+};
+
+export const getPromo = async (promo) => {
+  console.log("PROMO LOADER RUN");
+  const response = await fetch(
+    `https://treat-or-treat-default-rtdb.firebaseio.com/${promo}.json`
   );
   if (!response.ok) {
     console.log(response);
