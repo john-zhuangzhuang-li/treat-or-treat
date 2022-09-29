@@ -10,6 +10,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import QuantitySelect from "../UI/QuantitySelect";
 import MessageBadge from "../UI/MessageBadge";
 
+import { DUMMY_URL } from "../../store/DummyData";
+
 const Item = styled("li")(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "8rem minmax(min-content, 1fr)",
@@ -76,7 +78,7 @@ const CartItems = (props) => {
               <ItemImageContainer>
                 {message && <MessageBadge />}
                 <ItemImage
-                  src={item.imageSquareSmall}
+                  src={`${DUMMY_URL}${item.imageSquareSmall}`}
                   alt="nice cake"
                   data-link-to={`/product/${item.url}`}
                   onClick={props.onLinkButtonClick}

@@ -60,33 +60,36 @@ const DUMMY_FILTER_OPTIONS = [
   "Low Calorie",
 ];
 
+const DUMMY_COLLECTION_LOGOS = {
+  everyday: <LogoEveryday />,
+  cafeteria: <LogoCafeteria />,
+  slimfit: <LogoSlimFit />,
+  international: <LogoInternational />,
+};
+
 const DUMMY_PRODUCT_DATA = {
   everyday: {
     id: "collection1",
     title: "everyday",
     url: "everyday",
-    logo: <LogoEveryday />,
     products: [],
   },
   cafeteria: {
     id: "collection2",
     title: "Cafeteria",
     url: "cafeteria",
-    logo: <LogoCafeteria />,
     products: [],
   },
   slimfit: {
     id: "collection3",
     title: "Slim Fit",
     url: "slimfit",
-    logo: <LogoSlimFit />,
     products: [],
   },
   international: {
     id: "collection4",
     title: "INTERNATIONAL",
     url: "international",
-    logo: <LogoInternational />,
     products: [],
   },
 };
@@ -135,21 +138,21 @@ const DUMMY_COLLECTION_LIST = [];
 
 const additionalImages = [];
 for (let i = 1; i < 6; i++) {
-  additionalImages.push(`${DUMMY_URL}/DUMMY/additional-${i}-lg.jpg`);
+  additionalImages.push(`/DUMMY/additional-${i}-lg.jpg`);
 }
 
 const additionalImagesPreview = [];
 for (let i = 1; i < 6; i++) {
-  additionalImages.push(`${DUMMY_URL}/DUMMY/additional-${i}-lg-preview.jpg`);
+  additionalImagesPreview.push(`/DUMMY/additional-${i}-lg-preview.jpg`);
 }
 
 for (const collection in DUMMY_PRODUCT_DATA) {
   DUMMY_PRODUCT_DATA[
     collection
-  ].imageLandscapeLarge = `${DUMMY_URL}/DUMMY/collection-${collection}-lg.jpg`;
+  ].imageLandscapeLarge = `/DUMMY/collection-${collection}-lg.jpg`;
   DUMMY_PRODUCT_DATA[
     collection
-  ].imageLandscapeMedium = `${DUMMY_URL}/DUMMY/collection-${collection}-md.jpg`;
+  ].imageLandscapeMedium = `/DUMMY/collection-${collection}-md.jpg`;
 
   for (let i = 1; i < 13; i++) {
     const productId = i < 10 ? `${collection}-0${i}` : `${collection}-${i}`;
@@ -186,11 +189,11 @@ for (const collection in DUMMY_PRODUCT_DATA) {
       description,
       options: DUMMY_OPTIONS,
       addons: DUMMY_ADDONS,
-      imageLandscapeLarge: `${DUMMY_URL}/DUMMY/${productId}-lg.jpg`,
-      imageLandscapeLargePreview: `${DUMMY_URL}/DUMMY/${productId}-lg-preview.jpg`,
-      imageSquareMedium: `${DUMMY_URL}/DUMMY/sq-${productId}-md.jpg`,
-      imageSquareMediumPreview: `${DUMMY_URL}/DUMMY/sq-${productId}-md-preview.jpg`,
-      imageSquareSmall: `${DUMMY_URL}/DUMMY/sq-${productId}-sm.jpg`,
+      imageLandscapeLarge: `/DUMMY/${productId}-lg.jpg`,
+      imageLandscapeLargePreview: `/DUMMY/${productId}-lg-preview.jpg`,
+      imageSquareMedium: `/DUMMY/sq-${productId}-md.jpg`,
+      imageSquareMediumPreview: `/DUMMY/sq-${productId}-md-preview.jpg`,
+      imageSquareSmall: `/DUMMY/sq-${productId}-sm.jpg`,
       additionalImages,
       additionalImagesPreview,
       tags,
@@ -211,6 +214,11 @@ for (const collection in DUMMY_PRODUCT_DATA) {
   DUMMY_COLLECTION_LIST.push(DUMMY_PRODUCT_DATA[collection]);
 }
 
+// TEST
+
+console.log("BELOW IS LOCAL OBJECT");
+console.log(DUMMY_PRODUCT_DATA);
+
 export {
   DUMMY_PRODUCT_DATA,
   DUMMY_PRODUCT_ALL,
@@ -222,6 +230,7 @@ export {
   DUMMY_USER_CONTACTS,
   DUMMY_USER_ADDRESSES,
   DUMMY_URL,
+  DUMMY_COLLECTION_LOGOS,
 };
 
 const photoCredits = `Photo by <a href="https://unsplash.com/@rodolfomarques?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rodolfo Marques</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -343,4 +352,22 @@ const REMOTE_DATA_CREDITS = Object.fromEntries(creditEntries);
 const REMOTE_LOCATION_CREDITS =
   "https://treat-or-treat-default-rtdb.firebaseio.com/credits.json";
 
-export { setupRemoteData, REMOTE_LOCATION_CREDITS, REMOTE_DATA_CREDITS };
+const REMOTE_LOCATION_COLLECTIONS =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/collections.json";
+
+const productEntries = DUMMY_PRODUCT_ALL.map((product) => [
+  product.id,
+  product,
+]);
+const REMOTE_DATA_PRODUCT = Object.fromEntries(productEntries);
+const REMOTE_LOCATION_PRODUCTS =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/products.json";
+
+export {
+  setupRemoteData,
+  REMOTE_LOCATION_CREDITS,
+  REMOTE_DATA_CREDITS,
+  REMOTE_LOCATION_COLLECTIONS,
+  REMOTE_DATA_PRODUCT,
+  REMOTE_LOCATION_PRODUCTS,
+};

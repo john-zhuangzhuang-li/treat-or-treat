@@ -10,6 +10,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import MessageBadge from "../UI/MessageBadge";
 
+import { DUMMY_URL } from "../../store/DummyData";
+
 const HistoryItem = styled(Card)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "12rem minmax(min-content, 1fr)",
@@ -110,7 +112,7 @@ const OrderHistoryItems = (props) => {
                 {!matchesDownSm && <MessageBadge />}
                 <ItemImage
                   component="img"
-                  image={item.imageSquareSmall}
+                  image={`${DUMMY_URL}${item.imageSquareSmall}`}
                   alt="product image"
                   data-link-to={`/product/${item.url}`}
                   onClick={props.onNavigate}

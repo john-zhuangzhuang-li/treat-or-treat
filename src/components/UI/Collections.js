@@ -4,6 +4,8 @@ import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
+import { DUMMY_URL, DUMMY_COLLECTION_LOGOS } from "../../store/DummyData";
+
 const CollectionCard = styled(Card)(({ theme }) => ({
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
@@ -48,22 +50,17 @@ const Collections = (props) => {
       {collections &&
         Array.isArray(collections) &&
         collections.map((collection) => {
-          const {
-            id,
-            url,
-            logo,
-            imageLandscapeMedium: background,
-          } = collection;
+          const { id, url, imageLandscapeMedium: background } = collection;
           return (
             <CollectionCard
               key={`collection-${id}`}
               sx={{
-                backgroundImage: `url(${background})`,
+                backgroundImage: `url(${DUMMY_URL}${background})`,
               }}
               data-collection-url={url}
               onClick={handleCollectionClick}
             >
-              <Logo component="figure">{logo}</Logo>
+              <Logo component="figure">{DUMMY_COLLECTION_LOGOS[url]}</Logo>
             </CollectionCard>
           );
         })}

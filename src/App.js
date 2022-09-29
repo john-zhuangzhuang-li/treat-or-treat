@@ -11,12 +11,15 @@ import UserProvider from "./store/UserProvider";
 
 import StyledThemeProvider from "./store/StyledThemeProvider";
 import Layout, { loader as creditsLoader } from "./components/layout/Layout";
+import ResultsPage, {
+  collectionsLoader,
+  productsLoader,
+} from "./pages/ResultsPage";
+import DetailPage from "./pages/DetailPage";
 // import Loading from "./components/UI/Loading";
 
 import MainPage from "./pages/MainPage";
-import DetailPage from "./pages/DetailPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import ResultsPage from "./pages/ResultsPage";
 import UserPage from "./pages/UserPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -29,15 +32,35 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />} loader={creditsLoader}>
+    <Route
+      path="/"
+      element={<Layout />}
+      loader={creditsLoader}
+      errorElement={<NotFoundPage />}
+    >
       <Route index element={<MainPage />} />
-      <Route path="/detail" element={<DetailPage />} />
+      <Route
+        path="/collection/:collection"
+        element={<ResultsPage />}
+        loader={collectionsLoader}
+        errorElement={<NotFoundPage />}
+      />
+      <Route
+        path="/group/:group"
+        element={<ResultsPage />}
+        loader={productsLoader}
+        errorElement={<NotFoundPage />}
+      />
+      <Route
+        path="/results/:keyword"
+        element={<ResultsPage />}
+        loader={productsLoader}
+        errorElement={<NotFoundPage />}
+      />
+      <Route path="/product/:product" element={<DetailPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/account" element={<UserPage />} />
-      <Route path="/product/:product" element={<DetailPage />} />
-      <Route path="/collection/:collection" element={<ResultsPage />} />
-      <Route path="/group/:group" element={<ResultsPage />} />
-      <Route path="/results/:keyword" element={<ResultsPage />} />
+      {/* <Route path="/detail" element={<DetailPage />} /> */}
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )

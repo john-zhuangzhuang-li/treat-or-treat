@@ -8,6 +8,17 @@ import ListItemText from "@mui/material/ListItemText";
 // import { DUMMY_PHOTO_CREDITS } from "../../store/DummyData";
 
 const PhotoCreditsList = ({ data }) => {
+  if (!data) {
+    return (
+      <List>
+        <ListItem>
+          <ListItemText>
+            {`It looks like credits may not be available now :/`}
+          </ListItemText>
+        </ListItem>
+      </List>
+    );
+  }
   return (
     <>
       <List>

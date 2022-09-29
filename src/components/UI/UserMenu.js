@@ -14,6 +14,10 @@ import {
   setupRemoteData,
   REMOTE_LOCATION_CREDITS,
   REMOTE_DATA_CREDITS,
+  DUMMY_PRODUCT_DATA,
+  REMOTE_LOCATION_COLLECTIONS,
+  REMOTE_DATA_PRODUCT,
+  REMOTE_LOCATION_PRODUCTS,
 } from "../../store/DummyData";
 
 const UserMenu = (props) => {
@@ -91,7 +95,7 @@ const UserMenu = (props) => {
         )}
 
         {/* FOR REMOTE DATA SETUP ONLY */}
-        <MenuItem
+        {/* <MenuItem
           onClick={setupRemoteData.bind(
             null,
             REMOTE_LOCATION_CREDITS,
@@ -99,6 +103,24 @@ const UserMenu = (props) => {
           )}
         >
           SETUP: CREDITS
+        </MenuItem>
+        <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_COLLECTIONS,
+            DUMMY_PRODUCT_DATA
+          )}
+        >
+          SETUP: COLLECTIONS
+        </MenuItem> */}
+        <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_PRODUCTS,
+            REMOTE_DATA_PRODUCT
+          )}
+        >
+          SETUP: PRODUCTS
         </MenuItem>
       </Menu>
     </>

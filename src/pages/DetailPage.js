@@ -16,7 +16,7 @@ import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 import DisplayImages from "../components/detail/DisplayImages";
 
-import { DUMMY_PRODUCT_DATA } from "../store/DummyData";
+import { DUMMY_PRODUCT_DATA, DUMMY_URL } from "../store/DummyData";
 
 const DetailMainContainer = styled("div")(({ theme }) => ({
   gridColumn: "full",
@@ -179,7 +179,7 @@ const DetailPage = () => {
     const collectionKey = productUrl.slice(0, -3);
     const currentCollection = DUMMY_PRODUCT_DATA[collectionKey];
 
-    const { id, title, url, logo, products, imageLandscapeMedium } =
+    const { id, title, url, products, imageLandscapeMedium } =
       currentCollection;
 
     const currentProduct = products.find(
@@ -200,7 +200,7 @@ const DetailPage = () => {
       ...currentProduct.additionalImagesPreview,
     ];
 
-    setDisplayCollection({ id, title, url, logo, imageLandscapeMedium });
+    setDisplayCollection({ id, title, url, imageLandscapeMedium });
     setDisplayProduct(currentProduct);
     setProductImages([...currentProductImages]);
     setPreviewImages([...currentPreviews]);
@@ -225,7 +225,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <PageBackground imageSrc={productImages[0] || ""} />
+      <PageBackground imageSrc={`${DUMMY_URL}${productImages[0]}` || ""} />
       <DetailMainContainer>
         <DetailMain>
           <DetailDisplay>

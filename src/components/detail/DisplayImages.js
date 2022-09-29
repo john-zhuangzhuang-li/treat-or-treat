@@ -2,14 +2,14 @@ import Card from "@mui/material/Card";
 
 import ProgressiveImage from "../UI/ProgressiveImage";
 
-const DisplayImages = (props) => {
-  const { data: images } = props;
+import { DUMMY_URL } from "../../store/DummyData";
 
+const DisplayImages = ({ data: images, previewData: previewImages }) => {
   return (
     <>
       {images &&
         Array.isArray(images) &&
-        images.map((image, index, data) => {
+        images.map((image, index, allImages) => {
           const imageId = `display-${index}`;
           return (
             <Card
@@ -23,9 +23,11 @@ const DisplayImages = (props) => {
               id={imageId}
             >
               <ProgressiveImage
-                imageSrc={image}
+                imageSrc={`${DUMMY_URL}${image}`}
                 previewSrc={
-                  index !== data.length - 1 && props.previewData[index]
+                  index < allImages.length - 1
+                    ? `${DUMMY_URL}${previewImages[index]}`
+                    : null
                 }
               />
             </Card>

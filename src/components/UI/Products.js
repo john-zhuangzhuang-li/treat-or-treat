@@ -9,6 +9,8 @@ import FavoriteButton from "./FavoriteButton";
 import SaleLabel from "./SaleLabel";
 import ProgressiveImage from "./ProgressiveImage";
 
+import { DUMMY_URL } from "../../store/DummyData";
+
 import UserContext from "../../store/UserContext";
 
 const ProductBase = styled("div")(({ theme }) => ({
@@ -83,8 +85,8 @@ const Products = (props) => {
                   }
                 />
                 <ProgressiveImage
-                  imageSrc={product.imageSquareMedium}
-                  previewSrc={product.imageSquareMediumPreview}
+                  imageSrc={`${DUMMY_URL}${product.imageSquareMedium}`}
+                  previewSrc={`${DUMMY_URL}${product.imageSquareMediumPreview}`}
                   onImageClick={handleNavigateTo}
                   ImageDataLinkTo={`/product/${product.url}`}
                 />

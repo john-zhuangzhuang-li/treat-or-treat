@@ -14,6 +14,8 @@ import QuantitySelect from "../UI/QuantitySelect";
 import MessageBadge from "../UI/MessageBadge";
 import ProgressiveImage from "../UI/ProgressiveImage";
 
+import { DUMMY_URL } from "../../store/DummyData";
+
 const ItemCard = styled(Card)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "20rem minmax(min-content, 1fr)",
@@ -123,8 +125,8 @@ const CheckoutItems = (props) => {
                   <MessageBadge size={matchesDownSm ? "small" : "medium"} />
                 )}
                 <ProgressiveImage
-                  imageSrc={item.imageSquareMedium}
-                  previewSrc={item.imageSquareMediumPreview}
+                  imageSrc={`${DUMMY_URL}${item.imageSquareMedium}`}
+                  previewSrc={`${DUMMY_URL}${item.imageSquareMediumPreview}`}
                   onImageClick={props.onLinkButtonClick}
                   ImageDataLinkTo={`/product/${item.url}`}
                 />

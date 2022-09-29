@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 
 import Box from "@mui/material/Box";
@@ -15,11 +15,16 @@ import FilterOptions from "../components/results/FilterOptions";
 import UserContext from "../store/UserContext";
 
 import {
-  DUMMY_PRODUCT_DATA,
-  DUMMY_PRODUCT_ALL,
+  // DUMMY_PRODUCT_DATA,
+  // DUMMY_PRODUCT_ALL,
   DUMMY_SORTING_OPTIONS,
   DUMMY_FILTER_OPTIONS,
+  DUMMY_URL,
 } from "../store/DummyData";
+
+// FOR LOADER
+
+import { getCollections, getProducts } from "../util/api";
 
 // NEXT STEP: USE LOADER TO GET 4 DATA SET DIRECTLY
 
@@ -74,6 +79,8 @@ const ResultsFilter = styled("section")(({ theme }) => ({
 
 const ResultsPage = () => {
   const theme = useTheme();
+  const loaderData = useLoaderData();
+
   const params = useParams();
   const { collection, group, keyword } = params;
 
@@ -104,20 +111,22 @@ const ResultsPage = () => {
   const [activeFilters, setActiveFilters] = useState([]);
 
   useEffect(() => {
-    // PAGE TYPE EFFECT
+    // PAGE-TYPE EFFECT
     // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+
+    console.log("PAGE-TYPE EFFECT RUN");
 
     const defaultHeader = {
       title: "No results found",
       titleSub: "Try search by collection or product",
     };
     if (pageType === "collection") {
-      const pageCollection = DUMMY_PRODUCT_DATA[contentKey];
-      if (!pageCollection) {
+      if (!loaderData) {
         setDisplayHeader(defaultHeader);
         setCurrentProductList([]);
         return;
       }
+      const pageCollection = { ...loaderData };
       const {
         title,
         products,
@@ -128,6 +137,7 @@ const ResultsPage = () => {
       return;
     }
     if (pageType === "group") {
+      const loaderProducts = Object.values(loaderData);
       if (contentKey === "favorite") {
         if (!favoritedProducts || favoritedProducts.length === 0) {
           setDisplayHeader(defaultHeader);
@@ -139,8 +149,8 @@ const ResultsPage = () => {
         return;
       }
 
-      const groupedProducts = DUMMY_PRODUCT_ALL.filter((product) =>
-        product.tags.some((tag) => {
+      const groupedProducts = loaderProducts.filter((product) =>
+        product.tags?.some((tag) => {
           const groupText = tag.replace(" ", "-").toLowerCase();
           return groupText === contentKey;
         })
@@ -156,7 +166,8 @@ const ResultsPage = () => {
       return;
     }
     if (pageType === "search") {
-      const resultProducts = DUMMY_PRODUCT_ALL.filter((product) => {
+      const loaderProducts = Object.values(loaderData);
+      const resultProducts = loaderProducts.filter((product) => {
         const currentTitle = product.title.replace(" ", "").toLowerCase();
         return currentTitle.includes(contentKey);
       });
@@ -175,11 +186,14 @@ const ResultsPage = () => {
     setDisplayHeader(defaultHeader);
     setCurrentProductList([]);
     return;
-  }, [pageType, contentKey, favoritedProducts]);
+  }, [pageType, contentKey, favoritedProducts, loaderData]);
 
   useEffect(() => {
     // FILTER EFFECT
     // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+
+    console.log("FILTER EFFECT RUN");
+
     if (activeFilters.length === 0) {
       setFilteredProductList([...currentProductList]);
       return;
@@ -190,7 +204,7 @@ const ResultsPage = () => {
     activeFilters.forEach((activeFilter) => {
       if (filteredProducts.length > 0)
         filteredProducts = [...filteredProducts].filter((product) =>
-          product.tags.some((tag) => tag === activeFilter)
+          product.tags?.some((tag) => tag === activeFilter)
         );
     });
 
@@ -200,6 +214,9 @@ const ResultsPage = () => {
   useEffect(() => {
     // SORTER EFFECT
     // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+
+    console.log("SORTER EFFECT RUN");
+
     if (filteredProductList.length === 0) {
       setDisplayProductList([]);
       return;
@@ -248,7 +265,11 @@ const ResultsPage = () => {
   return (
     <>
       <PageBackground
-        imageSrc={displayHeader.background || theme.backgrounds.general1}
+        imageSrc={
+          displayHeader.background
+            ? `${DUMMY_URL}${displayHeader.background}`
+            : theme.backgrounds.general1
+        }
         extended
       />
       <Header>
@@ -281,3 +302,12 @@ const ResultsPage = () => {
 };
 
 export default ResultsPage;
+
+export const collectionsLoader = ({ params }) => {
+  const collectionName = params.collection;
+  return getCollections(collectionName);
+};
+
+export const productsLoader = () => {
+  return getProducts();
+};
