@@ -22,6 +22,10 @@ import {
   REMOTE_LOCATION_FEATURED,
   REMOTE_DATA_ONSALE,
   REMOTE_LOCATION_ONSALE,
+  REMOTE_DATA_SEARCH,
+  REMOTE_LOCATION_SEARCH,
+  REMOTE_DATA_PROMO_LISTS,
+  REMOTE_LOCATION_PROMO_LISTS,
 } from "../../util/dummy";
 
 const UserMenu = (props) => {
@@ -143,6 +147,24 @@ const UserMenu = (props) => {
           )}
         >
           SETUP: GROUP2
+        </MenuItem> */}
+        {/* <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_SEARCH,
+            REMOTE_DATA_SEARCH
+          )}
+        >
+          SETUP: SEARCH
+        </MenuItem>
+        <MenuItem
+          onClick={setupRemoteData.bind(
+            null,
+            REMOTE_LOCATION_PROMO_LISTS,
+            REMOTE_DATA_PROMO_LISTS
+          )}
+        >
+          SETUP: PROMOLISTS
         </MenuItem> */}
       </Menu>
     </>

@@ -1,4 +1,3 @@
-// import { useState, useContext, useEffect } from "react";
 import { useContext } from "react";
 
 import Button from "@mui/material/Button";
@@ -24,54 +23,16 @@ const SignInDialog = (props) => {
     handleClearInput,
   } = useInputValidation({ maxLength: 20, regex: /^[a-zA-Z0-9_.]+$/ });
 
-  // const [signInInfo, setSignInInfo] = useState("");
-  // const [signInInfoValid, setSignInInfoValid] = useState(false);
-  // const [signInHelperText, setSignInHelperText] = useState("");
-
   const handleSignIn = () => {
     userCtx.updateInfo(inputValue);
     props.onClose();
     handleClearInput();
   };
 
-  // const handleSignIn = () => {
-  //   userCtx.updateInfo(signInInfo);
-  //   props.onClose();
-  //   setSignInInfo("");
-  // };
-
   const handleDialogClose = () => {
     props.onClose();
     handleClearInput();
   };
-
-  // const handleSignInInputChange = (event) => {
-  //   setSignInInfo(event.target.value);
-  // };
-
-  // useEffect(() => {
-  //   if (!signInInfo) {
-  //     setSignInHelperText("");
-  //     setSignInInfoValid(false);
-  //     return;
-  //   }
-  //   if (signInInfo.length > 20) {
-  //     setSignInHelperText("Please enter no more than 20 characters");
-  //     setSignInInfoValid(false);
-  //     return;
-  //   }
-  //   const nameRegex = /^[a-zA-Z0-9_.]+$/;
-  //   const infoValid = signInInfo.match(nameRegex);
-  //   if (!infoValid) {
-  //     setSignInHelperText(
-  //       "Please enter a valid name (without special characters)"
-  //     );
-  //     setSignInInfoValid(false);
-  //     return;
-  //   }
-  //   setSignInHelperText("");
-  //   setSignInInfoValid(true);
-  // }, [signInInfo]);
 
   return (
     <Dialog open={props.open} onClose={handleDialogClose}>

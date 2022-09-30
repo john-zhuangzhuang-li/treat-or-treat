@@ -90,10 +90,10 @@ const MainPage = () => {
 export default MainPage;
 
 export const loader = async () => {
-  const featuredRes = await getPromo("featured");
-  if (!featuredRes) throw new Error("Something went wrong...");
-  const onSaleRes = await getPromo("on-sale");
-  if (!onSaleRes) throw new Error("Something went wrong...");
+  const promoRes = await getPromo();
+  if (!promoRes) throw new Error("Something went wrong...");
+  const { featured: featuredRes, onSale: onSaleRes } = promoRes;
+  if (!featuredRes || !onSaleRes) throw new Error("Something went wrong...");
   const featuredData = Object.values(featuredRes);
   const onSaleData = Object.values(onSaleRes);
   return { featuredData, onSaleData };

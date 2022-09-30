@@ -21,7 +21,7 @@ import Loading from "./Loading";
 
 import useInputValidation from "../../hooks/useInputValidation";
 
-import { DUMMY_PRODUCT_DATA, DUMMY_PRODUCT_ALL } from "../../util/dummy";
+import { SEARCH_FETCH_LOCATION } from "../../util/api";
 
 const SearchDialogTitle = styled(DialogTitle)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
@@ -31,7 +31,7 @@ const SearchDialogTitle = styled(DialogTitle)(({ theme }) => ({
   },
 }));
 
-const NotFoundBase = styled("div")({
+const ErrorBase = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -47,82 +47,75 @@ const SearchButton = () => {
   const { inputValue, inputValueValid, inputHelperText, handleInputChange } =
     useInputValidation({ maxLength: 30, regex: /^[a-zA-Z0-9\s]+$/ });
 
-  // const [searchInfo, setSearchInfo] = useState("");
-  // const [searchInfoValid, setSearchInfoValid] = useState(false);
-  // const [searchHelperText, setSearchHelperText] = useState("");
-
   const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState("");
   const [searchSuggestion, setSearchSuggestion] = useState({});
-
-  // useEffect(() => {
-  //   if (searchInfo === "") {
-  //     setSearchHelperText("");
-  //     setSearchInfoValid(false);
-  //     return;
-  //   }
-  //   if (searchInfo.length > 30) {
-  //     setSearchHelperText("Please enter less than 30 characters");
-  //     setSearchInfoValid(false);
-  //     return;
-  //   }
-  //   const searchRegex = /^[a-zA-Z0-9\s]+$/;
-  //   const infoValid = searchInfo.match(searchRegex);
-  //   if (!infoValid) {
-  //     setSearchHelperText("Please enter words without special characters");
-  //     setSearchInfoValid(false);
-  //     return;
-  //   }
-  //   setSearchHelperText("");
-  //   setSearchInfoValid(true);
-  // }, [searchInfo]);
 
   useEffect(() => {
     // SUGGESTION EFFECTS
-
-    // NEXT: SHOULD DO A CUSTOM HOOK IN HERE TO HANDLE IT
-    // CAN BE GOOD TO COMPARE WITH LOADER
-
     if (!inputValueValid) {
       setSearchLoading(false);
       setSearchSuggestion({});
       return;
     }
     setSearchLoading(true);
+    setSearchError("");
     setSearchSuggestion({});
     const handleSuggestion = setTimeout(() => {
-      setSearchLoading(false);
-      const currentSearch = inputValue.replace(" ", "").toLowerCase();
-      const matchingCollections = [];
-      for (const collection in DUMMY_PRODUCT_DATA) {
-        if (collection.includes(currentSearch)) {
-          const { id, title, url } = DUMMY_PRODUCT_DATA[collection];
-          matchingCollections.push({ id, title, url });
+      const fetchSearchData = async () => {
+        console.log("SEARCH FETCHER RUN");
+        const response = await fetch(SEARCH_FETCH_LOCATION);
+        if (!response.ok) {
+          console.log(response);
+          throw new Error("Something went wrong...");
         }
-      }
-      const matchingProducts = DUMMY_PRODUCT_ALL.filter((product) => {
-        const title = product.title.replace(" ", "").toLowerCase();
-        return title.includes(currentSearch);
-      });
-      const adjustedMatchingProducts = matchingProducts.map((product) => {
-        const { id, url, title, collection } = product;
-        return {
-          id,
-          url,
-          title,
-          collectionTitle: DUMMY_PRODUCT_DATA[collection].title,
-        };
-      });
-      setSearchSuggestion({
-        collections: matchingCollections,
-        products: adjustedMatchingProducts,
+        const resData = await response.json();
+        if (!resData) {
+          console.log(resData);
+          throw new Error("Something went wrong...");
+        }
+        const { collectionList, productList } = resData;
+        if (!collectionList || !productList) {
+          console.log(resData);
+          throw new Error("Something went wrong...");
+        }
+        const collections = Object.values(collectionList);
+        const products = Object.values(productList);
+
+        const currentSearch = inputValue.replace(" ", "").toLowerCase();
+
+        const matchingCollections = collections.filter((collection) =>
+          collection.url.includes(currentSearch)
+        );
+        const matchingProducts = products.filter((product) => {
+          const title = product.title.replace(" ", "").toLowerCase();
+          return title.includes(currentSearch);
+        });
+
+        const adjustedMatchingProducts = matchingProducts.map((product) => {
+          const { id, url, title, collection } = product;
+          return {
+            id,
+            url,
+            title,
+            collectionTitle: collectionList[collection].title,
+          };
+        });
+        setSearchSuggestion({
+          collections: matchingCollections,
+          products: adjustedMatchingProducts,
+        });
+        setSearchLoading(false);
+      };
+
+      fetchSearchData().catch((error) => {
+        console.log(error);
+        setSearchError("Failed to fetch data :O");
+        setSearchLoading(false);
       });
     }, 500);
     return () => clearTimeout(handleSuggestion);
   }, [inputValueValid, inputValue]);
-
-  // const handleSearchInput = (event) => {
-  //   setSearchInfo(event.target.value);
-  // };
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -197,11 +190,11 @@ const SearchButton = () => {
               />
             )}
           {!searchLoading && !inputValueValid && (
-            <NotFoundBase>
+            <ErrorBase>
               <Typography component="div" variant="body2">
-                Search results will appear here
+                {searchError || "Search results will appear here"}
               </Typography>
-            </NotFoundBase>
+            </ErrorBase>
           )}
         </DialogContent>
         <DialogActions>

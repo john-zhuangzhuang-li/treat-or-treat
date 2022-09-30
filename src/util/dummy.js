@@ -132,10 +132,6 @@ const DUMMY_PRODUCT_FEATURED = [];
 const DUMMY_PRODUCT_ONSALE = [];
 const DUMMY_COLLECTION_LIST = [];
 
-// WILL HAVE TO MOVE THIS LOGIC TO ALL PLACES WITH URL IF USING JSON
-// NEED TO OUT SOURCE SVG FILES TO OTHER OBJECT
-// NOTE: ADDED IMGS, IMG LAND FOR COL, IMG LAND FOR PRODUCT, IMG SQ, SQ-S
-
 const additionalImages = [];
 for (let i = 1; i < 6; i++) {
   additionalImages.push(`/DUMMY/additional-${i}-lg.jpg`);
@@ -322,7 +318,7 @@ const DUMMY_PHOTO_CREDITS = photoCredits.split(/\r?\n/).map((credit) => {
 
 export { DUMMY_PHOTO_CREDITS };
 
-// FOR REMOTE DATA SETUP ONLY
+// FOR REMOTE DUMMY DATA SETUP ONLY
 
 const setupRemoteData = async (location, data) => {
   try {
@@ -381,6 +377,43 @@ const REMOTE_DATA_ONSALE = Object.fromEntries(onSaleEntries);
 const REMOTE_LOCATION_ONSALE =
   "https://treat-or-treat-default-rtdb.firebaseio.com/on-sale.json";
 
+const REMOTE_DATA_SEARCH = {
+  collectionList: {
+    everyday: {
+      id: "collection1",
+      title: "everyday",
+      url: "everyday",
+    },
+    cafeteria: {
+      id: "collection2",
+      title: "Cafeteria",
+      url: "cafeteria",
+    },
+    slimfit: {
+      id: "collection3",
+      title: "Slim Fit",
+      url: "slimfit",
+    },
+    international: {
+      id: "collection4",
+      title: "INTERNATIONAL",
+      url: "international",
+    },
+  },
+  productList: REMOTE_DATA_PRODUCT,
+};
+
+const REMOTE_LOCATION_SEARCH =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/search.json";
+
+const REMOTE_DATA_PROMO_LISTS = {
+  featured: REMOTE_DATA_FEATURED,
+  onSale: REMOTE_DATA_ONSALE,
+};
+
+const REMOTE_LOCATION_PROMO_LISTS =
+  "https://treat-or-treat-default-rtdb.firebaseio.com/promo-lists.json";
+
 export {
   setupRemoteData,
   REMOTE_LOCATION_CREDITS,
@@ -392,4 +425,8 @@ export {
   REMOTE_LOCATION_FEATURED,
   REMOTE_DATA_ONSALE,
   REMOTE_LOCATION_ONSALE,
+  REMOTE_DATA_SEARCH,
+  REMOTE_LOCATION_SEARCH,
+  REMOTE_DATA_PROMO_LISTS,
+  REMOTE_LOCATION_PROMO_LISTS,
 };
