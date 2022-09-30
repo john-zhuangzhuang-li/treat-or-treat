@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from "react";
+// import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,50 +11,67 @@ import DialogContentText from "@mui/material/DialogContentText";
 
 import UserContext from "../../store/UserContext";
 
+import useInputValidation from "../../hooks/useInputValidation";
+
 const SignInDialog = (props) => {
   const userCtx = useContext(UserContext);
-  const [signInInfo, setSignInInfo] = useState("");
-  const [signInInfoValid, setSignInInfoValid] = useState(false);
-  const [signInHelperText, setSignInHelperText] = useState("");
+
+  const {
+    inputValue,
+    inputValueValid,
+    inputHelperText,
+    handleInputChange,
+    handleClearInput,
+  } = useInputValidation({ maxLength: 20, regex: /^[a-zA-Z0-9_.]+$/ });
+
+  // const [signInInfo, setSignInInfo] = useState("");
+  // const [signInInfoValid, setSignInInfoValid] = useState(false);
+  // const [signInHelperText, setSignInHelperText] = useState("");
 
   const handleSignIn = () => {
-    userCtx.updateInfo(signInInfo);
+    userCtx.updateInfo(inputValue);
     props.onClose();
-    setSignInInfo("");
+    handleClearInput();
   };
+
+  // const handleSignIn = () => {
+  //   userCtx.updateInfo(signInInfo);
+  //   props.onClose();
+  //   setSignInInfo("");
+  // };
 
   const handleDialogClose = () => {
     props.onClose();
-    setSignInInfo("");
+    handleClearInput();
   };
 
-  const handleSignInInputChange = (event) => {
-    setSignInInfo(event.target.value);
-  };
+  // const handleSignInInputChange = (event) => {
+  //   setSignInInfo(event.target.value);
+  // };
 
-  useEffect(() => {
-    if (!signInInfo) {
-      setSignInHelperText("");
-      setSignInInfoValid(false);
-      return;
-    }
-    if (signInInfo.length > 20) {
-      setSignInHelperText("Please enter no more than 20 characters");
-      setSignInInfoValid(false);
-      return;
-    }
-    const nameRegex = /^[a-zA-Z0-9_.]+$/;
-    const infoValid = signInInfo.match(nameRegex);
-    if (!infoValid) {
-      setSignInHelperText(
-        "Please enter a valid name (without special characters)"
-      );
-      setSignInInfoValid(false);
-      return;
-    }
-    setSignInHelperText("");
-    setSignInInfoValid(true);
-  }, [signInInfo]);
+  // useEffect(() => {
+  //   if (!signInInfo) {
+  //     setSignInHelperText("");
+  //     setSignInInfoValid(false);
+  //     return;
+  //   }
+  //   if (signInInfo.length > 20) {
+  //     setSignInHelperText("Please enter no more than 20 characters");
+  //     setSignInInfoValid(false);
+  //     return;
+  //   }
+  //   const nameRegex = /^[a-zA-Z0-9_.]+$/;
+  //   const infoValid = signInInfo.match(nameRegex);
+  //   if (!infoValid) {
+  //     setSignInHelperText(
+  //       "Please enter a valid name (without special characters)"
+  //     );
+  //     setSignInInfoValid(false);
+  //     return;
+  //   }
+  //   setSignInHelperText("");
+  //   setSignInInfoValid(true);
+  // }, [signInInfo]);
 
   return (
     <Dialog open={props.open} onClose={handleDialogClose}>
@@ -67,15 +85,15 @@ const SignInDialog = (props) => {
           label="Your name"
           fullWidth
           variant="standard"
-          value={signInInfo}
-          onChange={handleSignInInputChange}
-          helperText={!signInHelperText ? null : signInHelperText}
-          error={!signInHelperText ? false : true}
+          value={inputValue}
+          onChange={handleInputChange}
+          helperText={!inputHelperText ? null : inputHelperText}
+          error={Boolean(inputHelperText)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleDialogClose}>close</Button>
-        <Button onClick={handleSignIn} disabled={!signInInfoValid}>
+        <Button onClick={handleSignIn} disabled={!inputValueValid}>
           confirm
         </Button>
       </DialogActions>

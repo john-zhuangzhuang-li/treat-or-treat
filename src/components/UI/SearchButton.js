@@ -19,6 +19,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchSuggestionList from "./SearchSuggestionList";
 import Loading from "./Loading";
 
+import useInputValidation from "../../hooks/useInputValidation";
+
 import { DUMMY_PRODUCT_DATA, DUMMY_PRODUCT_ALL } from "../../util/dummy";
 
 const SearchDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -42,34 +44,37 @@ const SearchButton = () => {
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [searchInfo, setSearchInfo] = useState("");
-  const [searchInfoValid, setSearchInfoValid] = useState(false);
-  const [searchHelperText, setSearchHelperText] = useState("");
+  const { inputValue, inputValueValid, inputHelperText, handleInputChange } =
+    useInputValidation({ maxLength: 30, regex: /^[a-zA-Z0-9\s]+$/ });
+
+  // const [searchInfo, setSearchInfo] = useState("");
+  // const [searchInfoValid, setSearchInfoValid] = useState(false);
+  // const [searchHelperText, setSearchHelperText] = useState("");
+
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchSuggestion, setSearchSuggestion] = useState({});
 
-  useEffect(() => {
-    // VALIDATION EFFECTS
-    if (searchInfo === "") {
-      setSearchHelperText("");
-      setSearchInfoValid(false);
-      return;
-    }
-    if (searchInfo.length > 30) {
-      setSearchHelperText("Please enter less than 30 characters");
-      setSearchInfoValid(false);
-      return;
-    }
-    const searchRegex = /^[a-zA-Z0-9\s]+$/;
-    const infoValid = searchInfo.match(searchRegex);
-    if (!infoValid) {
-      setSearchHelperText("Please enter words without special characters");
-      setSearchInfoValid(false);
-      return;
-    }
-    setSearchHelperText("");
-    setSearchInfoValid(true);
-  }, [searchInfo]);
+  // useEffect(() => {
+  //   if (searchInfo === "") {
+  //     setSearchHelperText("");
+  //     setSearchInfoValid(false);
+  //     return;
+  //   }
+  //   if (searchInfo.length > 30) {
+  //     setSearchHelperText("Please enter less than 30 characters");
+  //     setSearchInfoValid(false);
+  //     return;
+  //   }
+  //   const searchRegex = /^[a-zA-Z0-9\s]+$/;
+  //   const infoValid = searchInfo.match(searchRegex);
+  //   if (!infoValid) {
+  //     setSearchHelperText("Please enter words without special characters");
+  //     setSearchInfoValid(false);
+  //     return;
+  //   }
+  //   setSearchHelperText("");
+  //   setSearchInfoValid(true);
+  // }, [searchInfo]);
 
   useEffect(() => {
     // SUGGESTION EFFECTS
@@ -77,7 +82,7 @@ const SearchButton = () => {
     // NEXT: SHOULD DO A CUSTOM HOOK IN HERE TO HANDLE IT
     // CAN BE GOOD TO COMPARE WITH LOADER
 
-    if (!searchInfoValid) {
+    if (!inputValueValid) {
       setSearchLoading(false);
       setSearchSuggestion({});
       return;
@@ -86,7 +91,7 @@ const SearchButton = () => {
     setSearchSuggestion({});
     const handleSuggestion = setTimeout(() => {
       setSearchLoading(false);
-      const currentSearch = searchInfo.replace(" ", "").toLowerCase();
+      const currentSearch = inputValue.replace(" ", "").toLowerCase();
       const matchingCollections = [];
       for (const collection in DUMMY_PRODUCT_DATA) {
         if (collection.includes(currentSearch)) {
@@ -113,11 +118,11 @@ const SearchButton = () => {
       });
     }, 500);
     return () => clearTimeout(handleSuggestion);
-  }, [searchInfoValid, searchInfo]);
+  }, [inputValueValid, inputValue]);
 
-  const handleSearchInput = (event) => {
-    setSearchInfo(event.target.value);
-  };
+  // const handleSearchInput = (event) => {
+  //   setSearchInfo(event.target.value);
+  // };
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -157,20 +162,18 @@ const SearchButton = () => {
             label="Search"
             fullWidth
             variant="filled"
-            value={searchInfo}
-            onChange={handleSearchInput}
+            value={inputValue}
+            onChange={handleInputChange}
             helperText={
-              searchHelperText === ""
-                ? "Try search by collection or product"
-                : searchHelperText
+              inputHelperText || "Try search by collection or product"
             }
-            error={searchHelperText === "" ? false : true}
+            error={Boolean(inputHelperText)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    disabled={searchLoading || !searchInfoValid}
-                    data-link-to={`/results/${searchInfo}`}
+                    disabled={searchLoading || !inputValueValid}
+                    data-link-to={`/results/${inputValue}`}
                     onClick={handleNavigateTo}
                   >
                     <SearchIcon />
@@ -184,16 +187,16 @@ const SearchButton = () => {
         <DialogContent sx={{ height: fullScreen ? "auto" : "40vh" }}>
           {searchLoading && <Loading />}
           {!searchLoading &&
-            searchInfoValid &&
+            inputValueValid &&
             ("collections" in searchSuggestion ||
               "products" in searchSuggestion) && (
               <SearchSuggestionList
-                searchInfo={searchInfo}
+                searchInfo={inputValue}
                 suggestion={searchSuggestion}
                 onNavigateTo={handleNavigateTo}
               />
             )}
-          {!searchLoading && !searchInfoValid && (
+          {!searchLoading && !inputValueValid && (
             <NotFoundBase>
               <Typography component="div" variant="body2">
                 Search results will appear here
