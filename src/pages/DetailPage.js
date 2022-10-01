@@ -18,7 +18,7 @@ import DisplayImages from "../components/detail/DisplayImages";
 
 import { DUMMY_URL } from "../util/dummy";
 
-import { getProductDetails } from "../util/api";
+import { getData } from "../util/api";
 
 const DetailMainContainer = styled("div")(({ theme }) => ({
   gridColumn: "full",
@@ -323,14 +323,14 @@ export default DetailPage;
 
 export const loader = async ({ params }) => {
   const productId = params.product;
-  const detailsData = await getProductDetails(productId);
+  if (!productId) return;
 
+  const collectionName = productId.slice(0, -3);
+  const detailsData = await getData(`collections/${collectionName}`);
   if (!detailsData) throw new Error("Something went wrong...");
 
   const { id, title, url, products, imageLandscapeMedium } = detailsData;
-
   const currentProduct = products.find((product) => product.url === productId);
-
   if (!currentProduct) throw new Error("Something went wrong...");
 
   const restRelatedProducts = products
@@ -355,8 +355,3 @@ export const loader = async ({ params }) => {
     relatedProducts: [...restRelatedProducts],
   };
 };
-
-// export const loader = ({ params }) => {
-//   const productId = params.product;
-// return getProductDetails(productId);
-// };

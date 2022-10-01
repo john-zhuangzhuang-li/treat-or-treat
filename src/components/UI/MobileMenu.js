@@ -25,8 +25,6 @@ import Collections from "./Collections";
 
 import UserContext from "../../store/UserContext";
 
-import { DUMMY_COLLECTION_LIST } from "../../util/dummy";
-
 import useNavigateTo from "../../hooks/useNavigateTo";
 
 const MobileMenu = (props) => {
@@ -148,7 +146,7 @@ const MobileMenu = (props) => {
                 }}
               >
                 <Collections
-                  collectionList={DUMMY_COLLECTION_LIST}
+                  collectionList={props.collectionListData}
                   onItemClick={handleCollectionCollapseItemClick}
                 />
               </Box>

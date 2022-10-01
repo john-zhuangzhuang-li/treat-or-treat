@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 import Footer from "./Footer";
 import Box from "@mui/material/Box";
 
-import { getCredits } from "../../util/api";
+import { getData } from "../../util/api";
 
 const LayoutContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -33,25 +33,30 @@ const NavigationContainer = styled(Box)(({ theme }) => ({
 }));
 
 const Layout = () => {
-  const loaderData = useLoaderData();
   const location = useLocation();
+  const { creditsData, collectionListData } = useLoaderData();
   useLayoutEffect(() => window.scrollTo(0, 0), [location.pathname]);
   return (
     <LayoutContainer>
       <NavigationContainer>
-        <Navigation />
+        <Navigation collectionListData={collectionListData} />
       </NavigationContainer>
       <Outlet />
-      <Footer creditsData={loaderData} />
+      <Footer creditsData={creditsData || null} />
     </LayoutContainer>
   );
 };
 
 export default Layout;
 
-// FOR LOADER TEST
-
 export const loader = async () => {
-  const resData = await getCredits();
-  return resData;
+  const collectionListRes = await getData("search/collectionList");
+  if (!collectionListRes) throw new Error("Something went wrong...");
+  const collectionListData = Object.values(collectionListRes);
+
+  const creditsData = await getData("credits");
+  // LOADER TO GO ON EVEN WITHOUT THIS DATA
+  if (!creditsData) console.log("Error fetching credits data");
+
+  return { creditsData, collectionListData };
 };

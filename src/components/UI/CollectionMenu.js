@@ -9,8 +9,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Collections from "./Collections";
 
-import { DUMMY_COLLECTION_LIST } from "../../util/dummy";
-
 const CollectionMenuBase = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -25,7 +23,7 @@ const CollectionMenuList = styled("div")(({ theme }) => ({
   rowGap: theme.spacing(2),
 }));
 
-const CollectionMenu = () => {
+const CollectionMenu = ({ collectionListData }) => {
   const [collectionMenuAnchor, setCollectionMenuAnchor] = useState(null);
 
   const isCollectionMenuOpen = Boolean(collectionMenuAnchor);
@@ -65,7 +63,7 @@ const CollectionMenu = () => {
           <Typography>Browse by collection</Typography>
           <CollectionMenuList>
             <Collections
-              collectionList={DUMMY_COLLECTION_LIST}
+              collectionList={collectionListData}
               onItemClick={handleCollectionMenuClose}
             />
           </CollectionMenuList>

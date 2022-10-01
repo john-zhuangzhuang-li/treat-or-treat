@@ -7,11 +7,7 @@ import Title from "../components/UI/Title";
 import Products from "../components/UI/Products";
 import Collections from "../components/UI/Collections";
 
-import { DUMMY_COLLECTION_LIST } from "../util/dummy";
-
-import { getPromo } from "../util/api";
-
-// NEXT STEP: USE LOADER TO GET 3 DATA SET DIRECTLY
+import { getData } from "../util/api";
 
 const Main = styled(Box)(({ theme }) => ({
   gridColumn: "center",
@@ -63,7 +59,7 @@ const PromoList = styled(Box)(({ theme }) => ({
 }));
 
 const MainPage = () => {
-  const { featuredData, onSaleData } = useLoaderData();
+  const { featuredData, onSaleData, collectionListData } = useLoaderData();
   return (
     <>
       <MainHero />
@@ -75,7 +71,7 @@ const MainPage = () => {
           </ProductList>
           <Title textMain={"Collections"} textSub={"Browse by collections"} />
           <PromoList>
-            <Collections collectionList={DUMMY_COLLECTION_LIST} />
+            <Collections collectionList={collectionListData} />
           </PromoList>
           <Title textMain={"On Sale"} textSub={"Latest deals to grab"} />
           <ProductList>
@@ -90,11 +86,16 @@ const MainPage = () => {
 export default MainPage;
 
 export const loader = async () => {
-  const promoRes = await getPromo();
+  const promoRes = await getData("promo-lists");
   if (!promoRes) throw new Error("Something went wrong...");
   const { featured: featuredRes, onSale: onSaleRes } = promoRes;
   if (!featuredRes || !onSaleRes) throw new Error("Something went wrong...");
   const featuredData = Object.values(featuredRes);
   const onSaleData = Object.values(onSaleRes);
-  return { featuredData, onSaleData };
+
+  const collectionListRes = await getData("search/collectionList");
+  if (!collectionListRes) throw new Error("Something went wrong...");
+  const collectionListData = Object.values(collectionListRes);
+
+  return { featuredData, onSaleData, collectionListData };
 };

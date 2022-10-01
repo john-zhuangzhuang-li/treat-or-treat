@@ -40,7 +40,7 @@ const NavBar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-const Navigation = () => {
+const Navigation = ({ collectionListData }) => {
   const theme = useTheme();
   const navigateTo = useNavigateTo();
 
@@ -80,6 +80,7 @@ const Navigation = () => {
         <MobileMenu
           onOpenSignIn={handleSignInDialogOpen}
           onOpenSignOut={handleSignOutDialogOpen}
+          collectionListData={collectionListData}
         />
         <IconButton
           size="large"
@@ -109,7 +110,7 @@ const Navigation = () => {
           </Typography>
           treat
         </Typography>
-        <CollectionMenu />
+        <CollectionMenu collectionListData={collectionListData} />
         <Box
           sx={{
             flexGrow: 1,

@@ -23,7 +23,7 @@ const PageTitle = styled("div")(({ theme }) => ({
   paddingBottom: theme.spacing(3),
 }));
 
-const NotFoundPage = () => {
+const ErrorPage = () => {
   const theme = useTheme();
   const navigateTo = useNavigateTo();
 
@@ -63,4 +63,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default ErrorPage;

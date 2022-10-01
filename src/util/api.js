@@ -1,7 +1,10 @@
-export const getCredits = async () => {
-  console.log("CREDITS LOADER RUN");
+// FOR LOADER
+
+export const getData = async (location) => {
+  if (!location) return;
+  // console.log(`LOADING DATA FROM ${location}`);
   const response = await fetch(
-    "https://treat-or-treat-default-rtdb.firebaseio.com/credits.json"
+    `https://treat-or-treat-default-rtdb.firebaseio.com/${location}.json`
   );
   if (!response.ok) {
     console.log(response);
@@ -10,66 +13,29 @@ export const getCredits = async () => {
   return response.json();
 };
 
-export const getCollections = async (collectionName) => {
-  console.log("COLLECTIONS LOADER RUN");
-  const response = await fetch(
-    `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${collectionName}.json`
-  );
-  if (!response.ok) {
-    console.log(response);
-    throw new Error("Something went wrong...");
-  }
-  return response.json();
-};
-
-export const getProducts = async () => {
-  console.log("PRODUCTS LOADER RUN");
-  const response = await fetch(
-    "https://treat-or-treat-default-rtdb.firebaseio.com/products.json"
-  );
-  if (!response.ok) {
-    console.log(response);
-    throw new Error("Something went wrong...");
-  }
-  return response.json();
-};
-
-export const getProductDetails = async (productId) => {
-  const id = productId.slice(0, -3);
-  console.log("DETAILS LOADER RUN");
-  const response = await fetch(
-    `https://treat-or-treat-default-rtdb.firebaseio.com/collections/${id}.json`
-  );
-  if (!response.ok) {
-    console.log(response);
-    throw new Error("Something went wrong...");
-  }
-  return response.json();
-};
-
-export const getPromo = async () => {
-  console.log("PROMO LOADER RUN");
-  const response = await fetch(
-    `https://treat-or-treat-default-rtdb.firebaseio.com/promo-lists.json`
-  );
-  if (!response.ok) {
-    console.log(response);
-    throw new Error("Something went wrong...");
-  }
-  return response.json();
-};
+// FOR USE EFFECT
 
 export const SEARCH_FETCH_LOCATION =
   "https://treat-or-treat-default-rtdb.firebaseio.com/search.json";
 
-// export const getSearch = async () => {
-//   console.log("SEARCH LOADER RUN");
-//   const response = await fetch(
-//     `https://treat-or-treat-default-rtdb.firebaseio.com/search.json`
-//   );
-//   if (!response.ok) {
-//     console.log(response);
-//     throw new Error("Something went wrong...");
+// FOR DUMMY DATA SETUP
+
+// export const setupRemoteData = async (location, data) => {
+//   try {
+//     const response = await fetch(location, {
+//       method: "PUT",
+//       body: JSON.stringify(data),
+//       headers: {
+//         "content-type": "application/json",
+//       },
+//     });
+//     if (!response.ok) {
+//       console.log(response);
+//       throw new Error("Something went wrong...");
+//     }
+//     const remoteData = await response.json();
+//     console.log(remoteData);
+//   } catch (error) {
+//     console.log(error);
 //   }
-//   return response.json();
 // };

@@ -10,7 +10,7 @@ import CartProvider from "./store/CartProvider";
 import UserProvider from "./store/UserProvider";
 
 import StyledThemeProvider from "./store/StyledThemeProvider";
-import Layout, { loader as creditsLoader } from "./components/layout/Layout";
+import Layout, { loader as layoutLoader } from "./components/layout/Layout";
 import ResultsPage, {
   collectionsLoader,
   productsLoader,
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
     <Route
       path="/"
       element={<Layout />}
-      loader={creditsLoader}
+      loader={layoutLoader}
       errorElement={<ErrorPage />}
     >
       <Route

@@ -5,8 +5,6 @@ import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 
-// import { DUMMY_PHOTO_CREDITS } from "../../store/DummyData";
-
 const PhotoCreditsList = ({ data }) => {
   if (!data) {
     return (

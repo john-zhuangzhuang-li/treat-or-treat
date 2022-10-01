@@ -64,7 +64,7 @@ const SearchButton = () => {
     setSearchSuggestion({});
     const handleSuggestion = setTimeout(() => {
       const fetchSearchData = async () => {
-        console.log("SEARCH FETCHER RUN");
+        // console.log("SEARCH FETCHER RUN");
         const response = await fetch(SEARCH_FETCH_LOCATION);
         if (!response.ok) {
           console.log(response);

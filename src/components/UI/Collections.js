@@ -46,8 +46,6 @@ const Collections = ({ collectionList: collections, onItemClick }) => {
     });
   };
 
-  // const { collectionList: collections } = props;
-
   return (
     <>
       {collections &&

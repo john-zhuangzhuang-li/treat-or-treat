@@ -20,7 +20,7 @@ import {
   DUMMY_URL,
 } from "../util/dummy";
 
-import { getCollections, getProducts } from "../util/api";
+import { getData } from "../util/api";
 
 const ResultsMain = styled(Paper)(({ theme }) => ({
   gridColumn: "center",
@@ -106,9 +106,9 @@ const ResultsPage = () => {
 
   useEffect(() => {
     // PAGE-TYPE EFFECT
-    // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+    // TO DO: CLEANER SOLUTION
 
-    console.log("PAGE-TYPE EFFECT RUN");
+    // console.log("PAGE-TYPE EFFECT RUN");
 
     const defaultHeader = {
       title: "No results found",
@@ -184,9 +184,9 @@ const ResultsPage = () => {
 
   useEffect(() => {
     // FILTER EFFECT
-    // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+    // TO DO: CLEANER SOLUTION
 
-    console.log("FILTER EFFECT RUN");
+    // console.log("FILTER EFFECT RUN");
 
     if (activeFilters.length === 0) {
       setFilteredProductList([...currentProductList]);
@@ -207,9 +207,9 @@ const ResultsPage = () => {
 
   useEffect(() => {
     // SORTER EFFECT
-    // TO DO: REBUILD WITH SEARCH PARAMS FOR CLEANER SOLUTION
+    // TO DO: CLEANER SOLUTION
 
-    console.log("SORTER EFFECT RUN");
+    // console.log("SORTER EFFECT RUN");
 
     if (filteredProductList.length === 0) {
       setDisplayProductList([]);
@@ -299,13 +299,14 @@ export default ResultsPage;
 
 export const collectionsLoader = async ({ params }) => {
   const collectionName = params.collection;
-  const resData = await getCollections(collectionName);
+  if (!collectionName) return;
+  const resData = await getData(`collections/${collectionName}`);
   if (!resData) throw new Error("Something went wrong...");
   return resData;
 };
 
 export const productsLoader = async () => {
-  const resData = await getProducts();
+  const resData = await getData("products");
   if (!resData) throw new Error("Something went wrong...");
   return resData;
 };

@@ -10,24 +10,25 @@ import UserContext from "../../store/UserContext";
 
 import useNavigateTo from "../../hooks/useNavigateTo";
 
-// FOR REMOTE DATA SETUP ONLY
-import {
-  setupRemoteData,
-  REMOTE_LOCATION_CREDITS,
-  REMOTE_DATA_CREDITS,
-  DUMMY_PRODUCT_DATA,
-  REMOTE_LOCATION_COLLECTIONS,
-  REMOTE_DATA_PRODUCT,
-  REMOTE_LOCATION_PRODUCTS,
-  REMOTE_DATA_FEATURED,
-  REMOTE_LOCATION_FEATURED,
-  REMOTE_DATA_ONSALE,
-  REMOTE_LOCATION_ONSALE,
-  REMOTE_DATA_SEARCH,
-  REMOTE_LOCATION_SEARCH,
-  REMOTE_DATA_PROMO_LISTS,
-  REMOTE_LOCATION_PROMO_LISTS,
-} from "../../util/dummy";
+// FOR DUMMY SETUP ONLY
+// import { setupRemoteData } from "../../util/api";
+
+// import {
+//   REMOTE_LOCATION_CREDITS,
+//   REMOTE_DATA_CREDITS,
+//   DUMMY_PRODUCT_DATA,
+//   REMOTE_LOCATION_COLLECTIONS,
+//   REMOTE_DATA_PRODUCT,
+//   REMOTE_LOCATION_PRODUCTS,
+//   REMOTE_DATA_FEATURED,
+//   REMOTE_LOCATION_FEATURED,
+//   REMOTE_DATA_ONSALE,
+//   REMOTE_LOCATION_ONSALE,
+//   REMOTE_DATA_SEARCH,
+//   REMOTE_LOCATION_SEARCH,
+//   REMOTE_DATA_PROMO_LISTS,
+//   REMOTE_LOCATION_PROMO_LISTS,
+// } from "../../util/dummy";
 
 const UserMenu = (props) => {
   const navigateTo = useNavigateTo();
@@ -104,7 +105,7 @@ const UserMenu = (props) => {
           <MenuItem onClick={handleSignOutOpen}>Sign Out</MenuItem>
         )}
 
-        {/* FOR REMOTE DATA SETUP ONLY */}
+        {/* FOR DUMMY SETUP ONLY */}
         {/* <MenuItem
           onClick={setupRemoteData.bind(
             null,
@@ -158,8 +159,8 @@ const UserMenu = (props) => {
           )}
         >
           SETUP: SEARCH
-        </MenuItem>
-        <MenuItem
+        </MenuItem> */}
+        {/* <MenuItem
           onClick={setupRemoteData.bind(
             null,
             REMOTE_LOCATION_PROMO_LISTS,
