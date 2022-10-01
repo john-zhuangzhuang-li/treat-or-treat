@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,6 +7,8 @@ import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import UserContext from "../../store/UserContext";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 // FOR REMOTE DATA SETUP ONLY
 import {
@@ -29,7 +30,7 @@ import {
 } from "../../util/dummy";
 
 const UserMenu = (props) => {
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
   const userCtx = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const userMenuOpen = Boolean(anchorEl);
@@ -53,10 +54,11 @@ const UserMenu = (props) => {
   };
 
   const handleNavigateTo = (event) => {
-    const path = event.currentTarget.dataset?.linkTo;
-    if (!path || path === "") return;
-    handleUserMenuClose();
-    navigate(path);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+      callback: handleUserMenuClose,
+    });
   };
 
   return (

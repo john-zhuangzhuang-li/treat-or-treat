@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -16,6 +15,8 @@ import Orders from "../components/user/Orders";
 import SignInDialog from "../components/UI/SignInDialog";
 
 import UserContext from "../store/UserContext";
+
+import useNavigateTo from "../hooks/useNavigateTo";
 
 const HistorySection = styled(Paper)(({ theme }) => ({
   display: "grid",
@@ -76,7 +77,7 @@ const UserInfo = styled("div")(({ theme }) => ({
 const UserPage = () => {
   const theme = useTheme();
   const userCtx = useContext(UserContext);
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const [signInDialogOpen, setSignInDialogOpen] = useState(false);
 
@@ -88,9 +89,10 @@ const UserPage = () => {
   };
 
   const handleNavigateTo = (event) => {
-    const path = event.currentTarget.dataset?.linkTo;
-    if (!path || path === "") return;
-    navigate(path);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+    });
   };
 
   return (

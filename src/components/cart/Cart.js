@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 import IconButton from "@mui/material/IconButton";
@@ -12,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import CartContext from "../../store/CartContext";
 
 import CartItems from "./CartItems";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 const CartBase = styled("div")(({ theme }) => ({
   display: "flex",
@@ -49,7 +50,7 @@ const CartAction = styled("div")(({ theme }) => ({
 
 const Cart = () => {
   const cartCtx = useContext(CartContext);
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
   const [cartOn, setCartOn] = useState(false);
 
   const toggleCart = (turnOn) => (event) => {
@@ -64,10 +65,11 @@ const Cart = () => {
   };
 
   const handleNavigateTo = (event) => {
-    toggleCart(false)();
-    const path = event.currentTarget.dataset?.linkTo;
-    if (!path || path === "") return;
-    navigate(path);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+      callback: toggleCart(false),
+    });
   };
 
   const handleAddItem = (item) => cartCtx.addItem(item);

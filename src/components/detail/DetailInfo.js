@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -25,10 +24,12 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import CartContext from "../../store/CartContext";
 import UserContext from "../../store/UserContext";
 
+import useNavigateTo from "../../hooks/useNavigateTo";
+
 const DetailInfo = (props) => {
   const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserContext);
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const [sizeSelection, setSizeSelection] = useState("");
   const [addMessageChecked, setAddMessageChecked] = useState(false);
@@ -186,8 +187,11 @@ const DetailInfo = (props) => {
   const handleAddFavorite = () => {
     userCtx.addFavorite(props.productData);
   };
+
   const handleViewFavorite = () => {
-    navigate("/group/favorite");
+    navigateTo({
+      path: "/group/favorite",
+    });
   };
 
   const handleTooltipClose = () => {

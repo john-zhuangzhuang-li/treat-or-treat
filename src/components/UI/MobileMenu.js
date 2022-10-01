@@ -1,5 +1,4 @@
 import { useState, useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -28,9 +27,11 @@ import UserContext from "../../store/UserContext";
 
 import { DUMMY_COLLECTION_LIST } from "../../util/dummy";
 
+import useNavigateTo from "../../hooks/useNavigateTo";
+
 const MobileMenu = (props) => {
-  const navigate = useNavigate();
   const userCtx = useContext(UserContext);
+  const navigateTo = useNavigateTo();
 
   const [menuOn, setMenuOn] = useState(false);
   const [collectionCollapseOpen, setCollectionCollapseOpen] = useState(false);
@@ -66,10 +67,11 @@ const MobileMenu = (props) => {
   };
 
   const handleListItemClick = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.linkTo || dataset.linkTo === "") return;
-    handleMenuClose();
-    navigate(dataset.linkTo);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+      callback: handleMenuClose,
+    });
   };
 
   const handleSignInOpen = () => {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -23,6 +22,8 @@ import useInputValidation from "../../hooks/useInputValidation";
 
 import { SEARCH_FETCH_LOCATION } from "../../util/api";
 
+import useNavigateTo from "../../hooks/useNavigateTo";
+
 const SearchDialogTitle = styled(DialogTitle)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     display: "flex",
@@ -40,7 +41,7 @@ const ErrorBase = styled("div")({
 
 const SearchButton = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -125,10 +126,11 @@ const SearchButton = () => {
   };
 
   const handleNavigateTo = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.linkTo) return;
-    handleDialogClose();
-    navigate(dataset.linkTo);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+      callback: handleDialogClose,
+    });
   };
 
   return (

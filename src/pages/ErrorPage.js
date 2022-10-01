@@ -1,5 +1,4 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -7,6 +6,8 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 
 import PageBackground from "../components/UI/PageBackground";
+
+import useNavigateTo from "../hooks/useNavigateTo";
 
 // NEXT STEP: MIGHT CHANGE THIS TO AN ERROR PAGE ALSO FOR LOADER FAILURE
 
@@ -24,10 +25,12 @@ const PageTitle = styled("div")(({ theme }) => ({
 
 const NotFoundPage = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const handleHomeButtonClick = () => {
-    navigate("/");
+    navigateTo({
+      path: "/",
+    });
   };
 
   return (

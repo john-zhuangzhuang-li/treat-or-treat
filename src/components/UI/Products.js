@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { styled } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -12,6 +11,8 @@ import ProgressiveImage from "./ProgressiveImage";
 import { DUMMY_URL } from "../../util/dummy";
 
 import UserContext from "../../store/UserContext";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 const ProductBase = styled("div")(({ theme }) => ({
   maxWidth: "45rem",
@@ -47,7 +48,7 @@ const NotFoundBase = styled(Typography)({
 });
 
 const Products = (props) => {
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
   const userCtx = useContext(UserContext);
 
   const handleAddFavorite = (product) => {
@@ -58,9 +59,10 @@ const Products = (props) => {
   };
 
   const handleNavigateTo = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.linkTo) return;
-    navigate(dataset.linkTo);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+    });
   };
 
   return (

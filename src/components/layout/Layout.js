@@ -6,7 +6,6 @@ import Navigation from "./Navigation";
 import Footer from "./Footer";
 import Box from "@mui/material/Box";
 
-// FOR LOADER TEST
 import { getCredits } from "../../util/api";
 
 const LayoutContainer = styled(Box)(({ theme }) => ({

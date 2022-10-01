@@ -15,7 +15,7 @@ const useNavigateTo = () => {
     };
 
     if (path && dataset && key) {
-      const target = `${path}${dataset[key]}`;
+      const target = dataset[key] ? `${path}${dataset[key]}` : `${path}`;
       if (!target) return;
       goTo(target);
     }

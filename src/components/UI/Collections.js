@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 
 import { DUMMY_URL, DUMMY_COLLECTION_LOGOS } from "../../util/dummy";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 const CollectionCard = styled(Card)(({ theme }) => ({
   backgroundSize: "cover",
@@ -33,17 +34,19 @@ const Logo = styled(Box)(({ theme }) => ({
   maxWidth: "50%",
 }));
 
-const Collections = (props) => {
-  const navigate = useNavigate();
+const Collections = ({ collectionList: collections, onItemClick }) => {
+  const navigateTo = useNavigateTo();
 
   const handleCollectionClick = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.collectionUrl || dataset.collectionUrl === "") return;
-    navigate(`/collection/${dataset.collectionUrl}`);
-    if (props.onItemClick) props.onItemClick();
+    navigateTo({
+      path: "/collection/",
+      dataset: event.currentTarget.dataset,
+      key: "collectionUrl",
+      callback: onItemClick || null,
+    });
   };
 
-  const { collectionList: collections } = props;
+  // const { collectionList: collections } = props;
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { useState, useContext, useReducer } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -28,6 +27,8 @@ import PromoForm from "../components/checkout/PromoForm";
 
 import CartContext from "../store/CartContext";
 import UserContext from "../store/UserContext";
+
+import useNavigateTo from "../hooks/useNavigateTo";
 
 const CheckoutMain = styled("main")(({ theme }) => ({
   gridColumn: "center",
@@ -121,7 +122,7 @@ const CheckoutPage = () => {
   const theme = useTheme();
   const cartCtx = useContext(CartContext);
   const userCtx = useContext(UserContext);
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const [submittedDialogOpen, setSubmittedDialogOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -176,15 +177,20 @@ const CheckoutPage = () => {
   };
 
   const handleSubmittedDialogClose = (event) => {
-    const path = event.currentTarget.dataset?.linkTo || "/";
-    navigate(path);
-    setSubmittedDialogOpen(false);
+    // PATH AS A FALLBACK IN CASE MODAL CLOSED WITHOUT DATASET
+    navigateTo({
+      path: "/",
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+      callback: () => setSubmittedDialogOpen(false),
+    });
   };
 
   const handleNavigateTo = (event) => {
-    const path = event.currentTarget.dataset?.linkTo;
-    if (!path) return;
-    navigate(path);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+    });
   };
 
   const handleAddItem = (item) => cartCtx.addItem(item);
@@ -347,17 +353,10 @@ const CheckoutPage = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleSubmittedDialogClose}
-            data-link-to={"/account"}
-          >
+          <Button onClick={handleSubmittedDialogClose} data-link-to={"account"}>
             review order
           </Button>
-          <Button
-            onClick={handleSubmittedDialogClose}
-            data-link-to={"/"}
-            autoFocus
-          >
+          <Button onClick={handleSubmittedDialogClose} autoFocus>
             okay
           </Button>
         </DialogActions>

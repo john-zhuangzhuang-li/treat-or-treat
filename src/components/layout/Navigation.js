@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 
 import Box from "@mui/material/Box";
@@ -16,6 +15,8 @@ import SearchButton from "../UI/SearchButton";
 import CollectionMenu from "../UI/CollectionMenu";
 import SignInDialog from "../UI/SignInDialog";
 import SignOutDialog from "../UI/SignOutDialog";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 const NavBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -40,9 +41,8 @@ const NavBar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const Navigation = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const theme = useTheme();
+  const navigateTo = useNavigateTo();
 
   const [signInDialogOpen, setSignInDialogOpen] = useState(false);
   const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
@@ -61,13 +61,10 @@ const Navigation = () => {
   };
 
   const handleNavigateTo = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.linkTo) return;
-    if (dataset.linkTo === location.pathname) {
-      window.scrollTo(0, 0);
-      return;
-    }
-    navigate(dataset.linkTo);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+    });
   };
 
   return (

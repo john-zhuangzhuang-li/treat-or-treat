@@ -1,7 +1,8 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 import PromoCard from "../UI/PromoCard";
+
+import useNavigateTo from "../../hooks/useNavigateTo";
 
 const Hero = styled("div")(({ theme }) => ({
   gridColumn: "center",
@@ -21,12 +22,13 @@ const Hero = styled("div")(({ theme }) => ({
 
 const MainHero = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
+  const navigateTo = useNavigateTo();
 
   const handlePromoClick = (event) => {
-    const { dataset } = event.currentTarget;
-    if (!dataset.linkTo) return;
-    navigate(dataset.linkTo);
+    navigateTo({
+      dataset: event.currentTarget.dataset,
+      key: "linkTo",
+    });
   };
 
   return (
