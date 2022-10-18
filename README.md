@@ -17,15 +17,11 @@ The goal is to create a fully responsive website for an online store. While pres
 ### Lessons learned
 
 Since the MUI library supports many styling options, I initially styled the components with CSS modules. But as I gained more experience with the library, the bundled styled and sx prop utilities became advantageous because of their integrity with the theme and the convenience of using them together.  
-While I implemented the filter and sort of products in this project with React state and effect, after I learned more about react-router later, I realized its search params feature could help create a powerful and clean solution for the same purpose. It reminds me that when building new features, try to start from libraries already in use to look for tools.
+While I implemented the filter and sort of products in this project with basic React hooks, after I learned more about react-router later, I realized its search params feature could help create a powerful and clean solution for the same purpose. It reminds me that when building new features, try to start from libraries already in use to look for tools.
 
 ### Next step
 
 Since a backend is not part of the purpose of this project, it is currently loading dummy data from Firebase in read-only mode. However, since Firebase is already in use, user states can be manageable with its authentication APIs to make more features available.
-
-## Installation
-
-With the necessary dependencies installed, this project should be ready to run out of the box.
 
 ## Thank you
 

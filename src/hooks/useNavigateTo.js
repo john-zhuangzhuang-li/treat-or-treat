@@ -10,7 +10,12 @@ const useNavigateTo = () => {
     if (!path && (!key || !dataset)) return;
 
     const goTo = (target) => {
-      if (target === location.pathname) window.scrollTo(0, 0);
+      if (target === location.pathname)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
       if (target !== location.pathname) navigate(target);
     };
 
